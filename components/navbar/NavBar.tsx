@@ -1,7 +1,7 @@
 import React from "react";
 import SearchBar from "./SearchBar";
 import Button from "../ui/Button";
-import { Car, LogIn } from "lucide-react";
+import { ShoppingBasket } from "lucide-react";
 
 const NavBar = () => {
   return (
@@ -9,8 +9,8 @@ const NavBar = () => {
       <h1 className="font-bold text-4xl">Wallpaper</h1>
       <SearchBar />
       <div className="flex gap-3">
-        <Button label="login" />
-        <Button icon={Car} />
+        <Button icon={ShoppingBasket} />
+        <Button label="login" variant="primary" />
       </div>
     </div>
   );
