@@ -10,7 +10,7 @@ const SearchBar = () => {
       <input
         type="text"
         placeholder="recherchez"
-        className="outline-none font-normal"
+        className="outline-none font-normal w-full"
       />
     </form>
   );
