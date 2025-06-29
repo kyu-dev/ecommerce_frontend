@@ -3,7 +3,7 @@ import ProductCard from "./ProductCard";
 
 const ProductList = () => {
   return (
-    <div className="flex gap-6 pt-10 justify-center">
+    <div className="flex gap-20 pt-10 justify-center">
       <ProductCard />
       <ProductCard />
       <ProductCard />
