@@ -5,10 +5,12 @@ const Infos = () => {
     <section className="w-full py-16 px-4">
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row  border-4 border-black rounded-lg shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] overflow-hidden">
         {/* Partie gauche : Mockup */}
-        <div className="md:w-1/2 w-full flex items-center justify-center  border-b-4 md:border-b-0 md:border-r-4 border-black p-8">
-          <p className="text-2xl font-bold text-gray-400">
-            [Mockup visuel ici]
-          </p>
+        <div className="md:w-1/2 w-full flex items-center justify-center  border-b-4 md:border-b-0 md:border-r-4 border-black ">
+          <img
+            src="/wpgroup.jpg"
+            className="w-full h-full object-cover"
+            alt="Groupe de fonds d'écran"
+          />
         </div>
         {/* Partie droite : Avantages */}
         <div className="md:w-1/2 w-full flex flex-col gap-6 p-8 justify-center">
