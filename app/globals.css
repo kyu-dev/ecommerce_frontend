@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f5f4ec;
+  --background: #ffffff;
   --foreground: #171717;
   --font-geist-sans: "Geist", sans-serif;
   --font-space-grotesk: "Space Grotesk", sans-serif;
