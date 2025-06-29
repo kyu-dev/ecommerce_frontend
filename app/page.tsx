@@ -7,13 +7,17 @@ import Infos from "@/components/infos/Infos";
 
 const page = () => {
   return (
-    <div className="font-grotesk flex flex-col ">
+    <div className="font-grotesk flex gap-y-20 flex-col ">
       <Hero />
-      <Infos />
+
       <div className="flex flex-col">
-        <h3 className="px-30 font-semibold text-4xl">New Product</h3>
+        <h3 className="px-30 font-semibold self-center text-4xl">
+          Best Sellers
+        </h3>
         <ProductList />
       </div>
+
+      <Infos />
       <Newsletter />
       <Testimonials />
     </div>
