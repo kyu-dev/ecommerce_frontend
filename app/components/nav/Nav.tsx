@@ -4,7 +4,7 @@ import { ShoppingBag } from "lucide-react";
 
 const Nav = () => {
   return (
-    <div className="grid grid-cols-[1fr_auto_1fr] fixed items-center text-white w-full px-8 py-4">
+    <div className="z-10 grid grid-cols-[1fr_auto_1fr] fixed items-center text-white w-full px-8 py-4">
       <h1 className="text-4xl justify-self-start">Panto</h1>
       <nav className="flex gap-10 justify-self-center">
         <Link href="/Shop">Shop</Link>
