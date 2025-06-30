@@ -1,4 +1,5 @@
 import React from "react";
+import SearchBar from "./components/searchbar/SearchBar";
 
 const page = () => {
   return (
@@ -12,6 +13,7 @@ const page = () => {
             Turn your room with panto into a lot more <br /> minimalist and
             modern with ease and speed
           </p>
+          <SearchBar />
         </div>
       </div>
       <div style={{ background: "white", minHeight: "100vh", width: "100vw" }}>
