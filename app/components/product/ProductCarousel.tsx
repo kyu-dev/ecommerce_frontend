@@ -19,7 +19,7 @@ type ProductCarouselProps = {
 
 const ProductCarousel: React.FC<ProductCarouselProps> = ({
   products,
-  cardsToShow = 1,
+  cardsToShow = 4,
 }) => {
   const [startIndex, setStartIndex] = useState(0);
   const maxIndex = Math.max(0, products.length - cardsToShow);
@@ -37,7 +37,7 @@ const ProductCarousel: React.FC<ProductCarouselProps> = ({
       <button
         onClick={handlePrev}
         disabled={startIndex === 0}
-        className="p-2 rounded-full bg-gray-200 hover:bg-gray-300 disabled:opacity-50"
+        className="p-2 rounded-full  bg-gray-200 hover:bg-gray-300 disabled:opacity-50"
       >
         <ChevronLeft />
       </button>

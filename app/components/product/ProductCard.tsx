@@ -20,7 +20,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
     <div className=" flex flex-col  w-64 ">
       <img src={img} alt={name} className="w-50 self-center object-cover" />
       <div className="bg-white p-3 rounded-b-2xl">
-        <p className="text-xs text-gray-400 mb-1">{categories}</p>
+        <p className=" text-gray-400 mb-1">{categories}</p>
         <h4 className="text-lg font-semibold mb-2 ">{name}</h4>
         <div className="flex items-center gap-1 mb-2">
           {[...Array(5)].map((_, i) => (
