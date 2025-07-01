@@ -1,11 +1,10 @@
 import React from "react";
-import SearchBar from "./components/searchbar/SearchBar";
-import Hero from "./components/hero/Hero";
-import WhySection from "./components/why/WhySection";
-import BestSellerSection from "./components/bestseller/BestSellerSection";
-import ExperienceSection from "./components/experience/ExperienceSection";
-import MaterialsSection from "./components/materials/MaterialsSection";
-import TestimonialsSection from "./components/testimonials/TestimonialsSection";
+import Hero from "./components/home/hero/Hero";
+import WhySection from "./components/home/why/WhySection";
+import BestSellerSection from "./components/home/bestseller/BestSellerSection";
+import ExperienceSection from "./components/home/experience/ExperienceSection";
+import MaterialsSection from "./components/home/materials/MaterialsSection";
+import TestimonialsSection from "./components/home/testimonials/TestimonialsSection";
 
 const page = () => {
   return (

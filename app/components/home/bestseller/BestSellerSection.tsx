@@ -1,7 +1,7 @@
 import React from "react";
-import ProductCarousel from "../product/ProductCarousel";
-import Filter from "./Filter";
+import ProductCarousel from "../../product/ProductCarousel";
 import { MoveRight } from "lucide-react";
+import Filter from "./Filter";
 
 const produits = [
   // à modifié avec de vrais données
