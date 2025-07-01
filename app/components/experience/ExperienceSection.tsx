@@ -7,7 +7,7 @@ const ExperienceSection = () => {
       {/* Colonne image */}
       <div className="relative w-full max-w-2xl">
         {/* Rectangle arrière */}
-        <div className="absolute bottom-20 -left-10 w-[90%]  h-full bg-gray-100 rounded-md z-0"></div>
+        <div className="absolute bottom-10 -left-10 w-[90%]  h-full bg-gray-100 rounded-md z-0"></div>
 
         {/* Rectangle milieu */}
         <div className="absolute top-12 -right-7 w-full h-[70%] bg-gray-100 rounded-md z-0"></div>
