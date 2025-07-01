@@ -7,21 +7,21 @@ const ExperienceSection = () => {
       {/* Colonne image */}
       <div className="relative w-full max-w-2xl">
         {/* Rectangle arrière */}
-        <div className="absolute bottom-20 -left-10 w-[90%]  h-full bg-gray-100 rounded-2xl z-0"></div>
+        <div className="absolute bottom-20 -left-10 w-[90%]  h-full bg-gray-100 rounded-md z-0"></div>
 
         {/* Rectangle milieu */}
-        <div className="absolute top-12 -right-7 w-full h-[70%] bg-gray-100 rounded-2xl z-0"></div>
+        <div className="absolute top-12 -right-7 w-full h-[70%] bg-gray-100 rounded-md z-0"></div>
         <img
-          src="/exp.png"
+          src="/interieur.jpeg"
           alt="Salon"
-          className="absolute z-9s opacity-60 blur-lg top-7 rounded-2xl right-4 shadow-xl w-full  object-cover"
+          className="absolute z-9s opacity-60 blur-lg top-7 h-100  rounded-md right-4 shadow-xl w-full  object-cover"
         />
 
         {/* Image principale */}
         <img
-          src="/exp.png"
+          src="/interieur.jpeg"
           alt="Salon"
-          className="relative z-10 rounded-2xl right-4 shadow-xl w-full object-cover"
+          className="relative z-10 rounded-md right-4 h-100 shadow-xl w-full object-cover"
         />
       </div>
 
