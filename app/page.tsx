@@ -5,6 +5,7 @@ import WhySection from "./components/why/WhySection";
 import BestSellerSection from "./components/bestseller/BestSellerSection";
 import ExperienceSection from "./components/experience/ExperienceSection";
 import MaterialsSection from "./components/materials/MaterialsSection";
+import TestimonialsSection from "./components/testimonials/TestimonialsSection";
 
 const page = () => {
   return (
@@ -14,6 +15,7 @@ const page = () => {
       <BestSellerSection />
       <ExperienceSection />
       <MaterialsSection />
+      <TestimonialsSection />
     </>
   );
 };
