@@ -7,7 +7,7 @@ const Nav = () => {
     <div className="z-10 grid grid-cols-[1fr_auto_1fr] fixed items-center text-white w-full px-8 py-4">
       <h1 className="text-4xl justify-self-start">Panto</h1>
       <nav className="flex gap-10 justify-self-center">
-        <Link href="/Shop">Shop</Link>
+        <Link href="/shop">Shop</Link>
         <Link href="/produits">À propos</Link>
         <Link href="/contact">Contact</Link>
       </nav>
