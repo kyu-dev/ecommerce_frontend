@@ -9,12 +9,15 @@ import {
 import { Separator } from "@/components/ui/separator";
 import PriceSlider from "@/components/ui/PriceSlider";
 import { Checkbox } from "./ui/checkbox";
-import { Label } from "./ui/label";
 import { Star } from "lucide-react";
+import { useRatingStore, useTagStore } from "@/app/store/FilterStore";
 
 function Filter() {
+  const { ratings, toggleRating } = useRatingStore();
+  const { tags, toggleTag } = useTagStore();
+
   return (
-    <Card className="w-md">
+    <Card className="w-md h-full">
       <CardHeader>
         <CardTitle>Filter</CardTitle>
       </CardHeader>
@@ -24,20 +27,25 @@ function Filter() {
           <AccordionItem value="item-1">
             <AccordionTrigger>Tags</AccordionTrigger>
             <AccordionContent>
-              Yes. It adheres to the WAI-ARIA design pattern.
+              {["Tag 1", "Tag 2", "Tag 3", "Tag 4", "Tag 5"].map(
+                (tag, index) => (
+                  <div
+                    key={tag}
+                    className="flex items-center justify-between py-1"
+                  >
+                    <span>{tag}</span>
+                    <Checkbox
+                      checked={tags[index]}
+                      onCheckedChange={() => toggleTag(index)}
+                    />
+                  </div>
+                )
+              )}
             </AccordionContent>
           </AccordionItem>
         </Accordion>
         <Separator />
-        <Accordion type="single" collapsible>
-          <AccordionItem value="item-1">
-            <AccordionTrigger>Is it accessible?</AccordionTrigger>
-            <AccordionContent>
-              Yes. It adheres to the WAI-ARIA design pattern.
-            </AccordionContent>
-          </AccordionItem>
-        </Accordion>
-        <Separator />
+
         <Accordion type="single" collapsible>
           <AccordionItem value="item-1">
             <AccordionTrigger>Price</AccordionTrigger>
@@ -51,7 +59,7 @@ function Filter() {
           <AccordionItem value="item-1">
             <AccordionTrigger>Rating</AccordionTrigger>
             <AccordionContent>
-              {[1, 2, 3, 4, 5].map((rating) => (
+              {[1, 2, 3, 4, 5].map((rating, index) => (
                 <div
                   key={rating}
                   className="flex items-center justify-between py-1"
@@ -61,7 +69,10 @@ function Filter() {
                       <Star key={i} className="fill-black w-4 h-4" />
                     ))}
                   </div>
-                  <Checkbox />
+                  <Checkbox
+                    checked={ratings[index]}
+                    onCheckedChange={() => toggleRating(index)}
+                  />
                 </div>
               ))}
             </AccordionContent>
