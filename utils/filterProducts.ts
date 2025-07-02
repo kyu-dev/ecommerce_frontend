@@ -24,7 +24,15 @@ export function filterProducts(products: any[]) {
     const hasSelectedRatings = ratings.some((rating) => rating);
     if (hasSelectedRatings) {
       const productRating = Math.floor(product.rating);
-      const isRatingMatch = ratings[productRating - 1];
+      // Vérifie si la note du produit est dans la plage sélectionnée
+      const isRatingMatch = ratings.some((rating, index) => {
+        if (rating) {
+          const minRating = index + 1;
+          const maxRating = index + 2;
+          return productRating >= minRating && productRating < maxRating;
+        }
+        return false;
+      });
       if (!isRatingMatch) return false;
     }
 

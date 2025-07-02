@@ -12,6 +12,8 @@ const products = [
     rating: 4.5,
     price: "19.99",
     tags: ["Tag 1", "Tag 3"],
+    avatarImage: "/sarkozy.jpeg",
+    productImage: "/sarkozy.jpeg",
   },
   {
     productLink: "/product/2",
@@ -21,6 +23,8 @@ const products = [
     rating: 3.8,
     price: "29.99",
     tags: ["Tag 2"],
+    avatarImage: "/sarkozy.jpeg",
+    productImage: "/sarkozy.jpeg",
   },
   {
     productLink: "/product/3",
@@ -30,6 +34,8 @@ const products = [
     rating: 4.2,
     price: "€39.99",
     tags: ["Tag 4"],
+    avatarImage: "/sarkozy.jpeg",
+    productImage: "/sarkozy.jpeg",
   },
   {
     productLink: "/product/4",
@@ -39,6 +45,8 @@ const products = [
     rating: 4.7,
     price: "€49.99",
     tags: ["Tag 5"],
+    avatarImage: "/sarkozy.jpeg",
+    productImage: "/sarkozy.jpeg",
   },
   {
     productLink: "/product/5",
@@ -48,114 +56,8 @@ const products = [
     rating: 4.7,
     price: "€49.99",
     tags: ["Tag 1", "Tag 5"],
-  },
-  {
-    productLink: "/product/5",
-    profileLink: "/profile/5",
-    productName: "Produit 5",
-    profileName: "Profil 5",
-    rating: 4.7,
-    price: "€49.99",
-    tags: ["Tag 1", "Tag 5"],
-  },
-  {
-    productLink: "/product/5",
-    profileLink: "/profile/5",
-    productName: "Produit 5",
-    profileName: "Profil 5",
-    rating: 4.7,
-    price: "€49.99",
-    tags: ["Tag 1", "Tag 5"],
-  },
-  {
-    productLink: "/product/5",
-    profileLink: "/profile/5",
-    productName: "Produit 5",
-    profileName: "Profil 5",
-    rating: 4.7,
-    price: "€49.99",
-    tags: ["Tag 1", "Tag 5"],
-  },
-  {
-    productLink: "/product/5",
-    profileLink: "/profile/5",
-    productName: "Produit 5",
-    profileName: "Profil 5",
-    rating: 4.7,
-    price: "€49.99",
-    tags: ["Tag 1", "Tag 5"],
-  },
-  {
-    productLink: "/product/5",
-    profileLink: "/profile/5",
-    productName: "Produit 5",
-    profileName: "Profil 5",
-    rating: 4.7,
-    price: "€49.99",
-    tags: ["Tag 1", "Tag 5"],
-  },
-  {
-    productLink: "/product/5",
-    profileLink: "/profile/5",
-    productName: "Produit 5",
-    profileName: "Profil 5",
-    rating: 4.7,
-    price: "€49.99",
-    tags: ["Tag 1", "Tag 5"],
-  },
-  {
-    productLink: "/product/5",
-    profileLink: "/profile/5",
-    productName: "Produit 5",
-    profileName: "Profil 5",
-    rating: 4.7,
-    price: "€49.99",
-    tags: ["Tag 1", "Tag 5"],
-  },
-  {
-    productLink: "/product/5",
-    profileLink: "/profile/5",
-    productName: "Produit 5",
-    profileName: "Profil 5",
-    rating: 4.7,
-    price: "€49.99",
-    tags: ["Tag 1", "Tag 5"],
-  },
-  {
-    productLink: "/product/5",
-    profileLink: "/profile/5",
-    productName: "Produit 5",
-    profileName: "Profil 5",
-    rating: 4.7,
-    price: "€49.99",
-    tags: ["Tag 1", "Tag 5"],
-  },
-  {
-    productLink: "/product/5",
-    profileLink: "/profile/5",
-    productName: "Produit 5",
-    profileName: "Profil 5",
-    rating: 4.7,
-    price: "€49.99",
-    tags: ["Tag 1", "Tag 5"],
-  },
-  {
-    productLink: "/product/5",
-    profileLink: "/profile/5",
-    productName: "Produit 5",
-    profileName: "Profil 5",
-    rating: 4.7,
-    price: "€49.99",
-    tags: ["Tag 1", "Tag 5"],
-  },
-  {
-    productLink: "/product/5",
-    profileLink: "/profile/5",
-    productName: "Produit 5",
-    profileName: "Profil 5",
-    rating: 4.7,
-    price: "€49.99",
-    tags: ["Tag 1", "Tag 5"],
+    avatarImage: "/sarkozy.jpeg",
+    productImage: "/sarkozy.jpeg",
   },
 ];
 
@@ -173,6 +75,8 @@ function ProductGrid() {
           profileName={product.profileName}
           rating={product.rating}
           price={product.price}
+          avatarImage={product.avatarImage}
+          productImage={product.productImage}
         />
       ))}
     </div>

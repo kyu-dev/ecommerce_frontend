@@ -12,6 +12,8 @@ function ProductCard({
   profileName,
   rating,
   price,
+  avatarImage,
+  productImage,
 }: {
   productLink: string;
   profileLink: string;
@@ -19,6 +21,8 @@ function ProductCard({
   profileName: string;
   rating: number;
   price: string;
+  avatarImage: string;
+  productImage: string;
 }) {
   const router = useRouter();
 
@@ -28,13 +32,13 @@ function ProductCard({
 
   return (
     <Card
-      className="w-fit p-0 overflow-hidden cursor-pointer hover:shadow-lg transition"
+      className="w-fit h-fit p-0 overflow-hidden cursor-pointer hover:shadow-lg transition"
       onClick={handleCardClick}
     >
       <CardContent className="p-0">
         <img
-          src="/sarkozy.webp"
-          className="object-cover h-80 w-80"
+          src={productImage}
+          className="object-cover object-center h-80 w-80"
           alt={`Image de ${productName}`}
         />
         <article className="px-4 flex flex-col justify-between h-40">
@@ -46,8 +50,8 @@ function ProductCard({
               className="flex items-center gap-2 hover:underline"
             >
               <img
-                src="/sarkozy.webp"
-                className="rounded-full h-6 w-6 object-cover"
+                src={avatarImage}
+                className="rounded-full h-6 w-6 object-center object-cover"
                 alt={`Photo de ${profileName}`}
               />
               {profileName}

@@ -59,7 +59,7 @@ function Filter() {
           <AccordionItem value="item-1">
             <AccordionTrigger>Rating</AccordionTrigger>
             <AccordionContent>
-              {[1, 2, 3, 4, 5].map((rating, index) => (
+              {[1, 2, 3, 4].map((rating, index) => (
                 <div
                   key={rating}
                   className="flex items-center justify-between py-1"

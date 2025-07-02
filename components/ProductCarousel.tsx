@@ -17,6 +17,8 @@ const products = [
     profileName: "Profil 1",
     rating: 4.5,
     price: "€19.99",
+    avatarImage: "/sarkozy.jpeg",
+    productImage: "/sarkozy.jpeg",
   },
   {
     productLink: "/product/2",
@@ -25,6 +27,8 @@ const products = [
     profileName: "Profil 2",
     rating: 3.8,
     price: "€29.99",
+    avatarImage: "/sarkozy.jpeg",
+    productImage: "/sarkozy.jpeg",
   },
   {
     productLink: "/product/3",
@@ -33,6 +37,8 @@ const products = [
     profileName: "Profil 3",
     rating: 4.2,
     price: "€39.99",
+    avatarImage: "/sarkozy.jpeg",
+    productImage: "/sarkozy.jpeg",
   },
   {
     productLink: "/product/4",
@@ -41,6 +47,8 @@ const products = [
     profileName: "Profil 4",
     rating: 4.7,
     price: "€49.99",
+    avatarImage: "/sarkozy.jpeg",
+    productImage: "/sarkozy.jpeg",
   },
   {
     productLink: "/product/5",
@@ -49,6 +57,8 @@ const products = [
     profileName: "Profil 5",
     rating: 4.7,
     price: "€49.99",
+    avatarImage: "/sarkozy.jpeg",
+    productImage: "/sarkozy.jpeg",
   },
 ];
 
@@ -65,6 +75,8 @@ export default function ProductCarousel() {
               profileName={product.profileName}
               rating={product.rating}
               price={product.price}
+              avatarImage={product.avatarImage}
+              productImage={product.productImage}
             />
           </CarouselItem>
         ))}
