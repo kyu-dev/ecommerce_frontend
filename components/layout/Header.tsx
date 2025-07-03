@@ -2,7 +2,7 @@
 import Link from "next/link";
 import React, { useState } from "react";
 import { Button } from "../ui/button";
-import { Search, ShoppingBag, UserRound } from "lucide-react";
+import { Disc2, Search, ShoppingBag, UserRound } from "lucide-react";
 import SearchBar from "../SearchBar";
 const Header = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -11,24 +11,33 @@ const Header = () => {
   };
   return (
     <>
-      <div className="flex border-b justify-between p-10">
-        <h1>VynylShop</h1>
-        <nav className="flex gap-4">
-          <Link href={"/"}>Home</Link>
-          <Link href={"/collection"}>Collection</Link>
-          <Link href={"/about"}>About</Link>
-          <Link href={"/contact"}>Contact</Link>
-        </nav>
-        <div>
-          <Button onClick={toggleSearch} variant="ghost">
-            <Search />
-          </Button>
-          <Button variant="ghost">
-            <ShoppingBag />
-          </Button>
-          <Button variant="ghost">
-            <UserRound />
-          </Button>
+      <div className="p-10">
+        <div className="flex  justify-between ">
+          <div className="flex gap-3 items-center">
+            <div className="flex gap-1 items-center">
+              <Disc2 />
+              <h1 className="fon">VynylShop</h1>
+            </div>
+            <Button onClick={toggleSearch} variant="ghost">
+              <Search />
+            </Button>
+          </div>
+
+          <div>
+            <Button variant="ghost">
+              <ShoppingBag />
+            </Button>
+            <Button variant="ghost">
+              <UserRound />
+            </Button>
+          </div>
+        </div>
+        <div className=" flex gap-4">
+          <p>NOUVEAUTÉ</p>
+          <p>NOUVEAUTÉ</p>
+          <p>NOUVEAUTÉ</p>
+          <p>NOUVEAUTÉ</p>
+          <p>NOUVEAUTÉ</p>
         </div>
       </div>
       {isSearchOpen ? <SearchBar /> : null}
