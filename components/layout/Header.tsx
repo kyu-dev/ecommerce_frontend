@@ -1,14 +1,8 @@
-"use client";
-import Link from "next/link";
-import React, { useState } from "react";
+import React from "react";
 import { Button } from "../ui/button";
 import { Disc2, Search, ShoppingBag, UserRound } from "lucide-react";
-import SearchBar from "../SearchBar";
+
 const Header = () => {
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const toggleSearch = () => {
-    setIsSearchOpen((prevState) => !prevState);
-  };
   return (
     <>
       <div className=" m-4 rounded-xl border">
@@ -16,9 +10,9 @@ const Header = () => {
           <div className="flex gap-3 items-center">
             <div className="flex gap-1 items-center">
               <Disc2 />
-              <h1 className="fon">VynylShop</h1>
+              <h1 className="fon">VinylShop</h1>
             </div>
-            <Button onClick={toggleSearch} variant="ghost">
+            <Button variant="ghost">
               <Search />
             </Button>
           </div>
@@ -32,16 +26,13 @@ const Header = () => {
             </Button>
           </div>
         </div>
-        <div className="p-2 flex gap-4">
+        <div className="p-4 flex flex-wrap gap-6">
           <p>NOUVEAUTÉ</p>
           <p>NOUVEAUTÉ</p>
           <p>NOUVEAUTÉ</p>
           <p>NOUVEAUTÉ</p>
           <p>NOUVEAUTÉ</p>
         </div>
-      </div>
-      <div className="flex justify-center">
-        {isSearchOpen ? <SearchBar /> : null}
       </div>
     </>
   );

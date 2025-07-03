@@ -28,7 +28,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   onAddToCart,
 }) => {
   return (
-    <Card className="w-xs p-0">
+    <Card className=" p-0">
       <CardContent className="p-0">
         <img
           src={imageUrl}
