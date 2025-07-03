@@ -12,9 +12,6 @@ const SearchBar = () => {
           <Search />
         </Button>
       </form>
-      <Button variant="ghost">
-        <Cross />
-      </Button>
     </div>
   );
 };

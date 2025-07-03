@@ -11,7 +11,7 @@ const Header = () => {
   };
   return (
     <>
-      <div className="flex justify-between p-10">
+      <div className="flex border-b justify-between p-10">
         <h1>VynylShop</h1>
         <nav className="flex gap-4">
           <Link href={"/"}>Home</Link>
