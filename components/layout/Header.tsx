@@ -11,8 +11,8 @@ const Header = () => {
   };
   return (
     <>
-      <div className="p-10">
-        <div className="flex  justify-between ">
+      <div className=" m-4 rounded-xl border">
+        <div className="flex border-b p-4 justify-between ">
           <div className="flex gap-3 items-center">
             <div className="flex gap-1 items-center">
               <Disc2 />
@@ -32,7 +32,7 @@ const Header = () => {
             </Button>
           </div>
         </div>
-        <div className=" flex gap-4">
+        <div className="p-2 flex gap-4">
           <p>NOUVEAUTÉ</p>
           <p>NOUVEAUTÉ</p>
           <p>NOUVEAUTÉ</p>
@@ -40,7 +40,9 @@ const Header = () => {
           <p>NOUVEAUTÉ</p>
         </div>
       </div>
-      {isSearchOpen ? <SearchBar /> : null}
+      <div className="flex justify-center">
+        {isSearchOpen ? <SearchBar /> : null}
+      </div>
     </>
   );
 };

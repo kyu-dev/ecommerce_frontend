@@ -5,7 +5,7 @@ import { Search } from "lucide-react";
 
 const SearchBar = () => {
   return (
-    <form action="" className="flex">
+    <form action="" className="flex gap-2">
       <Input type="search" />
       <Button>
         <Search />
