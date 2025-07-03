@@ -1,15 +1,7 @@
 import React from "react";
 import { products } from "@/data/products";
 
-interface Product {
-  id: string;
-  title: string;
-  price: number;
-  imageUrl: string;
-  description: string;
-}
-
-const ProductPage = ({ params }: { params: { id: string } }) => {
+const ProductPage = async ({ params }: { params: { id: string } }) => {
   const product = products.find((p) => p.id === params.id);
 
   if (!product) {
