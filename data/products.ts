@@ -17,7 +17,7 @@ export const products = [
     id: "3",
     title: "Product 3",
     price: 39.99,
-    imageUrl: "/cd.webp",
+    imageUrl: "/cd2.webp",
     description: "This is a description for Product 3.",
   },
 ];
