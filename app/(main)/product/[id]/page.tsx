@@ -1,17 +1,20 @@
-import React from "react";
 import { products } from "@/data/products";
 
-const ProductPage = async ({ params }: { params: { id: string } }) => {
-  const product = products.find((p) => p.id === params.id);
+export default async function ProductPage({ params }: { params: any }) {
+  const { id } = await params;
+  const product = products.find((e) => e.id === id);
 
   if (!product) {
-    return <div>Produit non trouvé</div>;
+    return (
+      <div className="p-6">
+        <p>Produit non trouvé</p>
+      </div>
+    );
   }
 
   return (
     <div className="p-6">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {/* Image à gauche */}
         <div className="flex justify-center items-center">
           <img
             src={product.imageUrl}
@@ -19,8 +22,6 @@ const ProductPage = async ({ params }: { params: { id: string } }) => {
             className="w-full max-w-md h-auto rounded-lg shadow-lg"
           />
         </div>
-
-        {/* Détails du produit à droite */}
         <div className="flex flex-col justify-center">
           <h1 className="text-3xl font-bold mb-4">{product.title}</h1>
           <p className="text-lg mb-4">{product.description}</p>
@@ -32,6 +33,4 @@ const ProductPage = async ({ params }: { params: { id: string } }) => {
       </div>
     </div>
   );
-};
-
-export default ProductPage;
+}
