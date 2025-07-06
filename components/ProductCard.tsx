@@ -15,7 +15,7 @@ import { Button } from "./ui/button";
 interface ProductCardProps {
   title: string;
   price: number;
-  imageUrl: string;
+  img: string;
   description?: string;
   onAddToCart?: () => void;
 }
@@ -23,7 +23,7 @@ interface ProductCardProps {
 const ProductCard: React.FC<ProductCardProps> = ({
   title,
   price,
-  imageUrl,
+  img,
   description,
   onAddToCart,
 }) => {
@@ -31,7 +31,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
     <Card className=" p-0">
       <CardContent className="p-0">
         <img
-          src={imageUrl}
+          src={img}
           alt={title}
           className="w-full h-48 object-cover rounded-t-lg"
         />

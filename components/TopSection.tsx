@@ -3,8 +3,10 @@ import ProductCard from "./ProductCard";
 import Link from "next/link";
 
 const TopSection = async () => {
-  const res = await fetch("http://localhost:3001/product/get");
+  //
+  const res = await fetch("http://localhost:3000/product/get");
   const result = await res.json();
+  console.log(result);
   const products = result.data;
   return (
     <div>
@@ -17,7 +19,7 @@ const TopSection = async () => {
                 <ProductCard
                   title={product.name}
                   price={product.price}
-                  imageUrl=""
+                  img={product.img}
                   description={product.description}
                 />
               </div>
@@ -27,6 +29,7 @@ const TopSection = async () => {
       </div>
     </div>
   );
+  //
 };
 
 export default TopSection;
