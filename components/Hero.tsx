@@ -16,7 +16,7 @@ function Hero() {
             générations.
           </p>
           <Link href="/collection">
-            <Button className="bg-primary hover:bg-primary/90 text-white px-8 py-6 text-lg">
+            <Button className="bg-white hover:bg-white/90 text-black px-8 py-6 text-lg">
               Explorer la collection
             </Button>
           </Link>

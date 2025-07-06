@@ -2,7 +2,21 @@ import React from "react";
 import { Button } from "../ui/button";
 import { Disc2, Search, ShoppingBag, UserRound } from "lucide-react";
 
-const Header = () => {
+interface Category {
+  id: number;
+  name: string;
+}
+
+const Header = async () => {
+  let categories: Category[] = [];
+
+  try {
+    const response = await fetch("http://localhost:3000/category/get");
+    const data = await response.json();
+  } catch (error) {
+    console.error("Erreur:", error);
+  }
+
   return (
     <>
       <div className=" m-4 rounded-xl border">
@@ -27,11 +41,9 @@ const Header = () => {
           </div>
         </div>
         <div className="p-4 flex flex-wrap gap-6">
-          <p>NOUVEAUTÉ</p>
-          <p>NOUVEAUTÉ</p>
-          <p>NOUVEAUTÉ</p>
-          <p>NOUVEAUTÉ</p>
-          <p>NOUVEAUTÉ</p>
+          {categories.map((category: Category) => (
+            <p key={category.id}>{category.name}</p>
+          ))}
         </div>
       </div>
     </>
