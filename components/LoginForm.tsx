@@ -2,6 +2,7 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import Link from "next/link";
 
 export function LoginForm({
   className,
@@ -40,18 +41,20 @@ export function LoginForm({
             Or continue with
           </span>
         </div>
-        <Button variant="outline" className="w-full">
-          <img //faut pas le dire ça vient de wikipedia
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Google_Favicon_2025.svg/2506px-Google_Favicon_2025.svg.png"
-            alt="Google logo"
-            className="mr-2 h-4 w-4"
-          />
-          Login with Google
+        <Button variant="outline" className="w-full" asChild>
+          <Link href={"http://localhost:3000/authentication/google"}>
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Google_Favicon_2025.svg/2506px-Google_Favicon_2025.svg.png"
+              alt="Logo Google"
+              className="mr-2 h-4 w-4"
+            />
+            Connexion avec Google
+          </Link>
         </Button>
       </div>
       <div className="text-center text-sm">
         Don&apos;t have an account?{" "}
-        <a href="/register" className="underline underline-offset-4">
+        <a href="/auth/register" className="underline underline-offset-4">
           Sign up
         </a>
       </div>

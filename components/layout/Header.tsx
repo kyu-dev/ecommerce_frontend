@@ -1,6 +1,7 @@
 import React from "react";
 import { Button } from "../ui/button";
-import { Disc2, Search, ShoppingBag, UserRound } from "lucide-react";
+import { Disc2, Search, ShoppingBag } from "lucide-react";
+import LoginBtn from "../LoginBtn";
 
 type categoryType = {
   id: number;
@@ -34,13 +35,11 @@ const Header = async () => {
           </Button>
         </div>
 
-        <div>
+        <div className="flex items-center">
           <Button variant="ghost">
             <ShoppingBag />
           </Button>
-          <Button variant="ghost">
-            <UserRound />
-          </Button>
+          <LoginBtn />
         </div>
       </div>
 
