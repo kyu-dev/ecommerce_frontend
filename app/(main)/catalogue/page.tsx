@@ -7,6 +7,9 @@ const getFilters = (searchParams?: Record<string, string>) => {
     category: searchParams?.category || "",
     minPrice: searchParams?.minPrice || "",
     maxPrice: searchParams?.maxPrice || "",
+    minAlcohol: searchParams?.minAlcohol || "",
+    maxAlcohol: searchParams?.maxAlcohol || "",
+    volume: searchParams?.volume || "",
     sort: searchParams?.sort || "",
   };
 };
@@ -21,6 +24,25 @@ const applyFiltersAndSort = (products: any[], filters: any) => {
   }
   if (filters.maxPrice) {
     filtered = filtered.filter((p) => p.price <= Number(filters.maxPrice));
+  }
+  if (filters.minAlcohol) {
+    filtered = filtered.filter(
+      (p) =>
+        p.alcoholDegree !== null &&
+        p.alcoholDegree >= Number(filters.minAlcohol)
+    );
+  }
+  if (filters.maxAlcohol) {
+    filtered = filtered.filter(
+      (p) =>
+        p.alcoholDegree !== null &&
+        p.alcoholDegree <= Number(filters.maxAlcohol)
+    );
+  }
+  if (filters.volume) {
+    filtered = filtered.filter(
+      (p) => String(p.volumeId) === String(filters.volume)
+    );
   }
   if (filters.sort === "price_asc") {
     filtered = filtered.sort((a, b) => a.price - b.price);

@@ -13,6 +13,15 @@ const sortOptions = [
   { value: "name_asc", label: "Nom A-Z" },
   { value: "name_desc", label: "Nom Z-A" },
 ];
+const volumes = [25, 33, 50, 75, 100];
+
+const volumeMap = {
+  1: 33,
+  2: 25,
+  3: 50,
+  4: 75,
+  5: 100,
+};
 
 const FilterSidebar = () => {
   const router = useRouter();
@@ -21,6 +30,7 @@ const FilterSidebar = () => {
   const [minPrice, setMinPrice] = useState(searchParams.get("minPrice") || "");
   const [maxPrice, setMaxPrice] = useState(searchParams.get("maxPrice") || "");
   const [sort, setSort] = useState(searchParams.get("sort") || "");
+  const [volume, setVolume] = useState(searchParams.get("volume") || "");
 
   const handleFilter = (e: React.FormEvent) => {
     e.preventDefault();
@@ -29,11 +39,12 @@ const FilterSidebar = () => {
     if (minPrice) params.set("minPrice", minPrice);
     if (maxPrice) params.set("maxPrice", maxPrice);
     if (sort) params.set("sort", sort);
+    if (volume) params.set("volume", volume);
     router.push(`/catalogue?${params.toString()}`);
   };
 
   return (
-    <Card className="w-full p-0">
+    <Card className="w-full ">
       <CardHeader>
         <h2 className="text-lg font-bold">Filtres & Tri</h2>
       </CardHeader>
@@ -93,6 +104,22 @@ const FilterSidebar = () => {
               {sortOptions.map((opt) => (
                 <option key={opt.value} value={opt.value}>
                   {opt.label}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <Label htmlFor="volume">Volume</Label>
+            <select
+              id="volume"
+              className="w-full border rounded px-2 py-1 mt-1"
+              value={volume}
+              onChange={(e) => setVolume(e.target.value)}
+            >
+              <option value="">Tous</option>
+              {Object.entries(volumeMap).map(([id, cl]) => (
+                <option key={id} value={id}>
+                  {cl} cL
                 </option>
               ))}
             </select>
