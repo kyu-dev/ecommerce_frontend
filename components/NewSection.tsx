@@ -2,15 +2,15 @@ import React from "react";
 import ProductCard from "./ProductCard";
 import Link from "next/link";
 
-const TopSection = async () => {
+const NewSection = async () => {
   //
-  const res = await fetch("http://localhost:3000/product/top/12");
+  const res = await fetch("http://localhost:3000/product/new/12");
   const result = await res.json();
   console.log(result);
   const products = result.data;
   return (
     <div>
-      <h3 className="p-6 text-5xl font-bold">Top Produit</h3>
+      <h3 className="p-6 text-5xl font-bold">New product</h3>
       <div className="p-6">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3  xl:grid-cols-4 gap-6">
           {(products ?? []).map((product: any, index: number) => (
@@ -32,4 +32,4 @@ const TopSection = async () => {
   //
 };
 
-export default TopSection;
+export default NewSection;
