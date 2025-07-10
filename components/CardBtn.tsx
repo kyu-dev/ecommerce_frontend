@@ -4,24 +4,26 @@ import { Button } from "./ui/button";
 import { ShoppingBag } from "lucide-react";
 import { useUserStore } from "@/store/userStore";
 import { fetchUser } from "@/lib/fetchUser";
+import { useCartDrawerStore } from "@/store/cartDrawerStore";
 
 const CardBtn = () => {
-  const { userId, setUserId } = useUserStore();
+  const { user, setUser } = useUserStore();
   const [loading, setLoading] = useState(true);
+  const { open } = useCartDrawerStore();
   useEffect(() => {
     const getUser = async () => {
       const id = await fetchUser();
-      setUserId(id);
+      setUser(id ? { id } : null);
       setLoading(false);
     };
     getUser();
-  }, [setUserId]);
+  }, [setUser]);
 
-  if (loading || !userId) return null;
+  if (loading || !user) return null;
 
   return (
     <>
-      <Button variant="ghost">
+      <Button variant="ghost" onClick={open}>
         <ShoppingBag />
       </Button>
     </>

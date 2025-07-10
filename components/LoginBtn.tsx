@@ -6,19 +6,19 @@ import { useUserStore } from "@/store/userStore";
 import { fetchUser } from "@/lib/fetchUser";
 
 const LoginBtn = () => {
-  const { userId, setUserId } = useUserStore();
+  const { user, setUser } = useUserStore();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const getUser = async () => {
       const id = await fetchUser();
-      setUserId(id);
+      setUser(id ? { id } : null);
       setLoading(false);
     };
     getUser();
-  }, [setUserId]);
+  }, [setUser]);
 
-  if (loading || userId) return null;
+  if (loading || user) return null;
 
   return (
     <Link href="/auth/login">

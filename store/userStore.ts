@@ -1,11 +1,20 @@
 import { create } from "zustand";
 
+export interface User {
+  id: string;
+  // Ajoute d'autres propriétés utilisateur si besoin
+}
+
 interface UserState {
-  userId: string | null;
-  setUserId: (id: string | null) => void;
+  user: User | null;
+  isLoggedIn: boolean;
+  setUser: (user: User | null) => void;
+  setIsLoggedIn: (logged: boolean) => void;
 }
 
 export const useUserStore = create<UserState>((set) => ({
-  userId: null,
-  setUserId: (id) => set({ userId: id }),
+  user: null,
+  isLoggedIn: false,
+  setUser: (user) => set({ user }),
+  setIsLoggedIn: (isLoggedIn) => set({ isLoggedIn }),
 }));
