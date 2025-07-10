@@ -3,6 +3,8 @@ import { useCartDrawerStore } from "@/store/cartDrawerStore";
 import { useCartStore } from "@/store/cartStore";
 import { useUserStore } from "@/store/userStore";
 import { useEffect, useState } from "react";
+import { Button } from "./ui/button";
+import { StripeBtn } from "./StripeBtn";
 
 export default function CartDrawer() {
   const { isOpen, close } = useCartDrawerStore();
@@ -97,6 +99,7 @@ export default function CartDrawer() {
           <span>{total.toFixed(2)} €</span>
         </div>
       )}
+      <StripeBtn cart={cart} />
     </div>
   );
 }
