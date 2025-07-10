@@ -77,7 +77,7 @@ const CataloguePage = async ({
   const filteredProducts = applyFiltersAndSort(products, filters);
 
   return (
-    <div className="flex gap-8 p-8 min-h-screen bg-slate-50">
+    <div className="flex gap-8 p-8 min-h-screen ">
       <aside className="w-64 shrink-0">
         <FilterSidebar />
       </aside>
