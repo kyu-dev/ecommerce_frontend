@@ -25,6 +25,14 @@ export function useCartSync() {
     // eslint-disable-next-line
   }, []);
 
+  // Charger le panier backend si l'utilisateur est connecté (même si le panier local est vide)
+  useEffect(() => {
+    if (user?.id) {
+      loadBackendCart(user.id);
+    }
+    // eslint-disable-next-line
+  }, [user?.id]);
+
   useEffect(() => {
     console.log("DEBUG SYNC", {
       user,
