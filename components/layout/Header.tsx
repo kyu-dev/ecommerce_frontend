@@ -31,9 +31,6 @@ const Header = async () => {
             <Disc2 />
             <h1 className="fon">BeerShop</h1>
           </div>
-          <Button variant="ghost">
-            <Search />
-          </Button>
         </div>
 
         <div className="flex items-center">

@@ -17,7 +17,7 @@ interface ProductCardProps {
   price: number;
   img: string;
   description?: string;
-  onAddToCart?: () => void;
+  rating?: number;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({
@@ -25,25 +25,37 @@ const ProductCard: React.FC<ProductCardProps> = ({
   price,
   img,
   description,
-  onAddToCart,
+  rating = 0,
 }) => {
   return (
-    <Card className=" p-0">
-      <CardContent className="p-0">
+    <Card className="group p-0 shadow-md border overflow-hidden hover:shadow-xl transition-shadow duration-200 cursor-pointer">
+      <div className="relative overflow-hidden ">
         <img
           src={img}
           alt={title}
-          className="w-full h-48 object-cover rounded-t-lg"
+          className="w-full h-48 object-cover  group-hover:scale-105 transition-transform duration-200"
         />
-      </CardContent>
-      <CardFooter className="flex flex-col pb-5 items-start gap-2">
-        <h3 className="text-xl font-bold">{title}</h3>
-        {description && <p>{description}</p>}
-        <div className="flex justify-between pt-12 w-full">
-          <Button className="w-fit" onClick={onAddToCart}>
-            Add to Cart
-          </Button>
-          <p className="text-lg font-bold mt-2">${price}</p>
+        <div className="absolute top-2 left-2 flex items-center gap-1 bg-white/90 rounded-full px-2 py-0.5 shadow text-xs">
+          {Array.from({ length: 5 }).map((_, i) => (
+            <span
+              key={i}
+              className={i < rating ? "text-yellow-400" : "text-gray-300"}
+            >
+              ★
+            </span>
+          ))}
+          <span className="ml-1 text-slate-700 font-medium">{rating}/5</span>
+        </div>
+      </div>
+      <CardFooter className="flex flex-col items-start gap-2 p-4">
+        <h3 className="text-lg font-bold line-clamp-1 w-full">{title}</h3>
+        {description && (
+          <p className="text-sm text-muted-foreground line-clamp-2 w-full mb-2">
+            {description}
+          </p>
+        )}
+        <div className="flex items-center justify-between w-full mt-2">
+          <span className="text-xl font-extrabold text-primary">{price} €</span>
         </div>
       </CardFooter>
     </Card>

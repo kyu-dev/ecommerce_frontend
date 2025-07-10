@@ -21,6 +21,7 @@ const TopSection = async () => {
                   price={product.price}
                   img={product.img}
                   description={product.description}
+                  rating={product.rating}
                 />
               </div>
             </Link>
