@@ -1,6 +1,7 @@
 import React from "react";
 import ProductCard from "@/components/ProductCard";
 import FilterSidebar from "@/components/FilterSidebar";
+import Link from "next/link";
 
 const getFilters = (searchParams?: Record<string, string>) => {
   return {
@@ -93,14 +94,16 @@ const CataloguePage = async ({
         </h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
           {(filteredProducts ?? []).map((product: any) => (
-            <ProductCard
-              key={product.id}
-              title={product.name}
-              price={product.price}
-              img={product.img}
-              description={product.description}
-              rating={product.rating}
-            />
+            <Link key={product.id} href={`/product/${product.id}`}>
+              <ProductCard
+                productId={product.id}
+                title={product.name}
+                price={product.price}
+                img={product.img}
+                description={product.description}
+                rating={product.rating}
+              />
+            </Link>
           ))}
         </div>
       </main>
