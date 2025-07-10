@@ -26,11 +26,16 @@ const volumeMap = {
 const FilterSidebar = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [category, setCategory] = useState(searchParams.get("category") || "");
+  const [category, setCategory] = React.useState("");
   const [minPrice, setMinPrice] = useState(searchParams.get("minPrice") || "");
   const [maxPrice, setMaxPrice] = useState(searchParams.get("maxPrice") || "");
   const [sort, setSort] = useState(searchParams.get("sort") || "");
   const [volume, setVolume] = useState(searchParams.get("volume") || "");
+
+  // Synchronise la valeur du filtre catégorie avec l'URL à chaque changement de searchParams
+  React.useEffect(() => {
+    setCategory(searchParams.get("category") || "");
+  }, [searchParams]);
 
   const handleFilter = (e: React.FormEvent) => {
     e.preventDefault();

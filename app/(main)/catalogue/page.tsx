@@ -82,7 +82,15 @@ const CataloguePage = async ({
         <FilterSidebar />
       </aside>
       <main className="flex-1">
-        <h1 className="text-3xl font-bold mb-6">Catalogue</h1>
+        <h1 className="text-3xl font-bold mb-6">
+          Catalogue
+          {filters.category
+            ? ` — ${
+                filters.category.charAt(0).toUpperCase() +
+                filters.category.slice(1)
+              }`
+            : ""}
+        </h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
           {(filteredProducts ?? []).map((product: any) => (
             <ProductCard

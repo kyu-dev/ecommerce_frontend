@@ -3,6 +3,7 @@ import { Button } from "../ui/button";
 import { Disc2, Search, ShoppingBag } from "lucide-react";
 import LoginBtn from "../LoginBtn";
 import CardBtn from "../CardBtn";
+import Link from "next/link";
 
 type categoryType = {
   id: number;
@@ -39,10 +40,16 @@ const Header = async () => {
         </div>
       </div>
 
-      <div className="p-4 flex flex-wrap gap-6">
+      <div className="p-4 flex flex-row flex-wrap gap-4 items-center">
         {categories.length > 0 ? (
           categories.map((category) => (
-            <div key={category.id}>{category.name}</div>
+            <Link
+              key={category.id}
+              href={`/catalogue?category=${encodeURIComponent(category.name)}`}
+              className="text-primary text-base px-1 py-0 hover:underline transition-colors"
+            >
+              {category.name}
+            </Link>
           ))
         ) : (
           <p className="text-muted-foreground">Aucune catégorie disponible.</p>
