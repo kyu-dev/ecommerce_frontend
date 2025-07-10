@@ -55,8 +55,29 @@ export default async function ProductPage({ params }: PageProps) {
               <h1 className="text-3xl md:text-4xl font-bold mb-2 text-slate-900 leading-tight">
                 {product.name}
               </h1>
+              <div className="flex items-center gap-2 mb-2">
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <span
+                    key={i}
+                    className={
+                      i < product.rating ? "text-yellow-400" : "text-gray-300"
+                    }
+                  >
+                    ★
+                  </span>
+                ))}
+                <span className="text-sm text-slate-600 font-medium">
+                  {product.rating}/5
+                </span>
+              </div>
               <div className="flex flex-wrap items-center gap-3 mb-4">
-                <span className="px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold uppercase tracking-wide">
+                <span
+                  className={`px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wide ${
+                    product.category?.name === "Blonde"
+                      ? "bg-yellow-100 text-yellow-800"
+                      : "bg-primary/10 text-primary"
+                  }`}
+                >
                   {product.category?.name}
                 </span>
                 {product.alcoholDegree && (
@@ -81,7 +102,7 @@ export default async function ProductPage({ params }: PageProps) {
                 <span className="text-3xl font-bold text-primary">
                   {product.price} €
                 </span>
-                <span className="text-xs text-slate-500 font-medium">TTC</span>
+
                 <span
                   className={`ml-4 px-3 py-1 rounded-full text-xs font-bold ${
                     product.stock > 0
