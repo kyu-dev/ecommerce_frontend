@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "@/app/globals.css";
-import ReactQueryProvider from "@/app/providers/ReactQueryProvider";
 import { ReactNode } from "react";
 
 const geistSans = Geist({
@@ -22,9 +21,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
-      <body>
-        <ReactQueryProvider>{children}</ReactQueryProvider>
-      </body>
+      <body>{children}</body>
     </html>
   );
 }
