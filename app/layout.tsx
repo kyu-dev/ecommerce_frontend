@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "@/app/globals.css";
 import { ReactNode } from "react";
 import CartDrawer from "@/components/CartDrawer";
+import CartSyncProvider from "@/providers/CartSyncProvider";
 
 const geistSans = Geist({
   subsets: ["latin"],
@@ -24,8 +25,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body>
-        {children}
-        <CartDrawer />
+        <CartSyncProvider>
+          {children}
+          <CartDrawer />
+        </CartSyncProvider>
       </body>
     </html>
   );

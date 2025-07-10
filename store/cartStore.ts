@@ -1,5 +1,7 @@
 import { create } from "zustand";
 
+const API_URL = "http://localhost:3000";
+
 export interface CartItem {
   productId: number;
   quantity: number;
@@ -8,13 +10,11 @@ export interface CartItem {
 interface CartStore {
   cart: CartItem[];
   userId: string | null;
-  // Invité
   loadLocalCart: () => void;
   saveLocalCart: () => void;
   addToLocalCart: (item: CartItem) => void;
   removeFromLocalCart: (productId: number) => void;
   clearLocalCart: () => void;
-  // Connecté
   loadBackendCart: (userId: string) => Promise<void>;
   addToBackendCart: (userId: string, item: CartItem) => Promise<void>;
   removeFromBackendCart: (userId: string, productId: number) => Promise<void>;
@@ -26,20 +26,17 @@ export const useCartStore = create<CartStore>((set, get) => ({
   cart: [],
   userId: null,
 
-  // Chargement du panier invité (localStorage)
   loadLocalCart: () => {
     if (typeof window === "undefined") return;
     const cart = JSON.parse(localStorage.getItem("cart") || "[]");
     set({ cart });
   },
 
-  // Sauvegarde du panier invité
   saveLocalCart: () => {
     if (typeof window === "undefined") return;
     localStorage.setItem("cart", JSON.stringify(get().cart));
   },
 
-  // Ajout d’un produit (invité)
   addToLocalCart: (item) => {
     const cart = [...get().cart];
     const idx = cart.findIndex((i) => i.productId === item.productId);
@@ -49,14 +46,12 @@ export const useCartStore = create<CartStore>((set, get) => ({
     get().saveLocalCart();
   },
 
-  // Suppression d’un produit (invité)
   removeFromLocalCart: (productId) => {
     const cart = get().cart.filter((i) => i.productId !== productId);
     set({ cart });
     get().saveLocalCart();
   },
 
-  // Vider le panier (invité)
   clearLocalCart: () => {
     set({ cart: [] });
     if (typeof window !== "undefined") {
@@ -64,33 +59,44 @@ export const useCartStore = create<CartStore>((set, get) => ({
     }
   },
 
-  // Chargement du panier backend (connecté)
   loadBackendCart: async (userId) => {
-    const res = await fetch(`/cart/${userId}`);
+    const res = await fetch(`${API_URL}/cart/${userId}`, {
+      credentials: "include",
+    });
     if (!res.ok) return;
-    const cart = await res.json();
+    const data = await res.json();
+    // Si data.data est un objet unique, on le met dans un tableau
+    const cart = Array.isArray(data.data)
+      ? data.data
+      : data.data
+      ? [data.data]
+      : [];
     set({ cart, userId });
   },
 
-  // Ajout d’un produit (connecté)
   addToBackendCart: async (userId, item) => {
-    await fetch(`/cart/${userId}`, {
+    await fetch(`${API_URL}/cart/${userId}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(item),
+      credentials: "include",
     });
     await get().loadBackendCart(userId);
   },
 
-  // Suppression d’un produit (connecté)
   removeFromBackendCart: async (userId, productId) => {
-    await fetch(`/cart/${userId}/item/${productId}`, { method: "DELETE" });
+    await fetch(`${API_URL}/cart/${userId}/item/${productId}`, {
+      method: "DELETE",
+      credentials: "include",
+    });
     await get().loadBackendCart(userId);
   },
 
-  // Vider le panier backend
   clearBackendCart: async (userId) => {
-    await fetch(`/cart/${userId}/clearCart`, { method: "DELETE" });
+    await fetch(`${API_URL}/cart/${userId}/clearCart`, {
+      method: "DELETE",
+      credentials: "include",
+    });
     await get().loadBackendCart(userId);
   },
 
