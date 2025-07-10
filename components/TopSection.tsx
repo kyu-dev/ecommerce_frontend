@@ -4,7 +4,7 @@ import Link from "next/link";
 
 const TopSection = async () => {
   //
-  const res = await fetch("http://localhost:3000/product/top/12");
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/product/top/12`);
   const result = await res.json();
   console.log(result);
   const products = result.data;

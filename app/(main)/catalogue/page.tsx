@@ -66,7 +66,7 @@ const CataloguePage = async ({
   searchParams?: Record<string, string>;
 }) => {
   // On récupère tous les produits (sans filtre côté backend)
-  const res = await fetch(`http://localhost:3000/product/get`);
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/product/get`);
   if (!res.ok) {
     const text = await res.text();
     throw new Error(`Erreur API: ${res.status} - ${text}`);

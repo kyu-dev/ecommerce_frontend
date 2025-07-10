@@ -30,7 +30,9 @@ export default async function ProductPage({ params }: PageProps) {
   const { id } = await params;
 
   try {
-    const response = await fetch(`http://localhost:3000/product/get/?id=${id}`);
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/product/get/?id=${id}`
+    );
 
     if (!response.ok) {
       throw new Error("Échec de la récupération du produit");

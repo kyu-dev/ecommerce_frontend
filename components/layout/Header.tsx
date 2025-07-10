@@ -14,9 +14,12 @@ const Header = async () => {
   let categories: categoryType[] = [];
 
   try {
-    const response = await fetch("http://localhost:3000/category/get", {
-      cache: "no-store",
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/category/get`,
+      {
+        cache: "no-store",
+      }
+    );
 
     const data = await response.json();
     categories = data.data;

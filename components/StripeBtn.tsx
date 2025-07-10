@@ -11,6 +11,8 @@ export function StripeBtn({ cart }: { cart: any }) {
     return null;
   }
 
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
   const handlePayment = async () => {
     if (!user?.id) {
       alert("Vous devez être connecté pour payer.");
@@ -19,7 +21,7 @@ export function StripeBtn({ cart }: { cart: any }) {
     setLoading(true);
     try {
       const res = await fetch(
-        `http://localhost:3000/order/${user.id}/create-checkout-session`,
+        `${API_URL}/order/${user.id}/create-checkout-session`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

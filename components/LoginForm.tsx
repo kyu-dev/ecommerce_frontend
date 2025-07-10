@@ -42,7 +42,9 @@ export function LoginForm({
           </span>
         </div>
         <Button variant="outline" className="w-full" asChild>
-          <Link href={"http://localhost:3000/authentication/google"}>
+          <Link
+            href={`${process.env.NEXT_PUBLIC_API_URL}/authentication/google`}
+          >
             <img
               src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Google_Favicon_2025.svg/2506px-Google_Favicon_2025.svg.png"
               alt="Logo Google"
