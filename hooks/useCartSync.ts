@@ -22,7 +22,6 @@ export function useCartSync() {
   useEffect(() => {
     loadLocalCart();
     setLocalCartLoaded(true);
-    // eslint-disable-next-line
   }, []);
 
   // Charger le panier backend si l'utilisateur est connecté (même si le panier local est vide)
