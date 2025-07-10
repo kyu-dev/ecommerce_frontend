@@ -24,6 +24,8 @@ interface PageProps {
   params: { id: string };
 }
 
+import AddCardBtn from "@/components/AddCardBtn";
+
 export default async function ProductPage({ params }: PageProps) {
   const { id } = await params;
 
@@ -115,23 +117,7 @@ export default async function ProductPage({ params }: PageProps) {
                     : "Rupture de stock"}
                 </span>
               </div>
-              <form className="flex items-center gap-3 mt-2">
-                <input
-                  type="number"
-                  min={1}
-                  max={product.stock}
-                  defaultValue={1}
-                  className="w-20 border rounded px-2 py-1 text-center text-base focus:outline-primary"
-                  aria-label="Quantité"
-                />
-                <button
-                  type="submit"
-                  className="px-6 py-2 text-base font-semibold bg-primary text-white rounded-lg hover:bg-primary/90 disabled:opacity-60 transition-all duration-200"
-                  disabled={product.stock === 0}
-                >
-                  Ajouter au panier
-                </button>
-              </form>
+              <AddCardBtn productId={product.id} stock={product.stock} />
               <div className="flex flex-col gap-1 text-xs text-muted-foreground mt-2">
                 <div>
                   Catégorie :{" "}

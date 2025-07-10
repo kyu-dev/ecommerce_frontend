@@ -17,6 +17,7 @@ const NewSection = async () => {
             <Link key={index} href={`/product/${product.id}`}>
               <div>
                 <ProductCard
+                  productId={product.id}
                   title={product.name}
                   price={product.price}
                   img={product.img}

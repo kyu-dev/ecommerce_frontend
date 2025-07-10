@@ -11,8 +11,11 @@ import {
 } from "@/components/ui/card";
 import { Star } from "lucide-react";
 import { Button } from "./ui/button";
+import { useCartStore } from "@/store/cartStore";
+import { useUserStore } from "@/store/userStore";
 
 interface ProductCardProps {
+  productId: number;
   title: string;
   price: number;
   img: string;
@@ -21,12 +24,25 @@ interface ProductCardProps {
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({
+  productId,
   title,
   price,
   img,
   description,
   rating = 0,
 }) => {
+  const { user } = useUserStore();
+  const { addToBackendCart, addToLocalCart } = useCartStore();
+
+  const handleAddToCart = (e: React.MouseEvent) => {
+    e.stopPropagation(); // Empêche la navigation
+    if (user) {
+      addToBackendCart(user.id, { productId, quantity: 1 });
+    } else {
+      addToLocalCart({ productId, quantity: 1 });
+    }
+  };
+
   return (
     <Card className="group p-0 shadow-md border overflow-hidden hover:shadow-xl transition-shadow duration-200 cursor-pointer">
       <div className="relative overflow-hidden ">
@@ -57,7 +73,19 @@ const ProductCard: React.FC<ProductCardProps> = ({
         <div className="flex items-center justify-between w-full mt-2">
           <span className="text-xl font-extrabold text-primary">{price} €</span>
         </div>
-        <Button>add to card</Button>
+        <Button
+          onClick={(e) => {
+            e.stopPropagation();
+            e.preventDefault(); // Empêche la navigation du Link parent
+            if (user) {
+              addToBackendCart(user.id, { productId, quantity: 1 });
+            } else {
+              addToLocalCart({ productId, quantity: 1 });
+            }
+          }}
+        >
+          Ajouter au panier
+        </Button>
       </CardFooter>
     </Card>
   );
