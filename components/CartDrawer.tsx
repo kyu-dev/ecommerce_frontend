@@ -1,10 +1,23 @@
 "use client";
 import { useCartDrawerStore } from "@/store/cartDrawerStore";
 import { useCartStore } from "@/store/cartStore";
+import { useUserStore } from "@/store/userStore";
+import { useEffect, useState } from "react";
 
 export default function CartDrawer() {
   const { isOpen, close } = useCartDrawerStore();
-  const { cart } = useCartStore();
+  const { cart, userId } = useCartStore();
+  const { user } = useUserStore();
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    // Si l'utilisateur est connecté et que le panier est vide, on considère que ça charge
+    if (userId && cart.length === 0) {
+      setIsLoading(true);
+    } else {
+      setIsLoading(false);
+    }
+  }, [userId, cart]);
 
   return (
     <div
@@ -20,7 +33,9 @@ export default function CartDrawer() {
         </button>
       </div>
       <div className="p-4 flex flex-col gap-4">
-        {cart.length === 0 ? (
+        {isLoading ? (
+          <p className="text-muted-foreground">Chargement du panier...</p>
+        ) : cart.length === 0 ? (
           <p className="text-muted-foreground">Votre panier est vide.</p>
         ) : (
           cart.map((item, idx) => (

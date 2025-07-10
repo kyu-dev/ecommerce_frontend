@@ -65,12 +65,15 @@ export const useCartStore = create<CartStore>((set, get) => ({
     });
     if (!res.ok) return;
     const data = await res.json();
-    // Si data.data est un objet unique, on le met dans un tableau
-    const cart = Array.isArray(data.data)
-      ? data.data
-      : data.data
-      ? [data.data]
-      : [];
+    // Nouvelle logique pour parser la structure backend
+    let cart: CartItem[] = [];
+    if (data.data && Array.isArray(data.data.items)) {
+      cart = data.data.items.map((item: any) => ({
+        productId: item.productId,
+        quantity: item.quantity,
+        // On peut ajouter d'autres champs si besoin
+      }));
+    }
     set({ cart, userId });
   },
 
