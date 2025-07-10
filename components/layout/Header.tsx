@@ -28,10 +28,10 @@ const Header = async () => {
     <div className="m-4 rounded-xl border">
       <div className="flex border-b p-4 justify-between">
         <div className="flex gap-3 items-center">
-          <div className="flex gap-1 items-center">
+          <Link href="/" className="flex gap-1 items-center">
             <Disc2 />
             <h1 className="fon">BeerShop</h1>
-          </div>
+          </Link>
         </div>
 
         <div className="flex items-center">
