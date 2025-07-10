@@ -57,6 +57,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
         <div className="flex items-center justify-between w-full mt-2">
           <span className="text-xl font-extrabold text-primary">{price} €</span>
         </div>
+        <Button>add to card</Button>
       </CardFooter>
     </Card>
   );
