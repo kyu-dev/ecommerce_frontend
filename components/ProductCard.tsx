@@ -1,15 +1,6 @@
 "use client";
 import React from "react";
-import {
-  Card,
-  CardAction,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Star } from "lucide-react";
+import { Card, CardFooter } from "@/components/ui/card";
 import { Button } from "./ui/button";
 import { useCartStore } from "@/store/cartStore";
 import { useUserStore } from "@/store/userStore";
@@ -35,7 +26,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   const { addToBackendCart, addToLocalCart } = useCartStore();
 
   const handleAddToCart = (e: React.MouseEvent) => {
-    e.stopPropagation(); // Empêche la navigation
+    e.preventDefault();
     if (user) {
       addToBackendCart(user.id, { productId, quantity: 1 });
     } else {
@@ -73,17 +64,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
         <div className="flex items-center justify-between w-full mt-2">
           <span className="text-xl font-extrabold text-primary">{price} €</span>
         </div>
-        <Button
-          onClick={(e) => {
-            e.stopPropagation();
-            e.preventDefault(); // Empêche la navigation du Link parent
-            if (user) {
-              addToBackendCart(user.id, { productId, quantity: 1 });
-            } else {
-              addToLocalCart({ productId, quantity: 1 });
-            }
-          }}
-        >
+        <Button type="button" onClick={handleAddToCart}>
           Ajouter au panier
         </Button>
       </CardFooter>

@@ -5,11 +5,13 @@ const API_URL = "http://localhost:3000";
 export interface CartItem {
   productId: number;
   quantity: number;
+  product?: any;
 }
 
 interface CartStore {
   cart: CartItem[];
   userId: string | null;
+  isLoaded: boolean;
   loadLocalCart: () => void;
   saveLocalCart: () => void;
   addToLocalCart: (item: CartItem) => void;
@@ -25,11 +27,12 @@ interface CartStore {
 export const useCartStore = create<CartStore>((set, get) => ({
   cart: [],
   userId: null,
+  isLoaded: false,
 
   loadLocalCart: () => {
     if (typeof window === "undefined") return;
     const cart = JSON.parse(localStorage.getItem("cart") || "[]");
-    set({ cart });
+    set({ cart, isLoaded: true });
   },
 
   saveLocalCart: () => {
@@ -63,7 +66,10 @@ export const useCartStore = create<CartStore>((set, get) => ({
     const res = await fetch(`${API_URL}/cart/${userId}`, {
       credentials: "include",
     });
-    if (!res.ok) return;
+    if (!res.ok) {
+      set({ isLoaded: true });
+      return;
+    }
     const data = await res.json();
     // Nouvelle logique pour parser la structure backend
     let cart: CartItem[] = [];
@@ -71,10 +77,10 @@ export const useCartStore = create<CartStore>((set, get) => ({
       cart = data.data.items.map((item: any) => ({
         productId: item.productId,
         quantity: item.quantity,
-        // On peut ajouter d'autres champs si besoin
+        product: item.product, // On ajoute l'objet produit complet
       }));
     }
-    set({ cart, userId });
+    set({ cart, userId, isLoaded: true });
   },
 
   addToBackendCart: async (userId, item) => {
