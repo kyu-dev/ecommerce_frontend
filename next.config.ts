@@ -2,8 +2,11 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
-    // Autoriser les images locales sans optimisation
+    // Désactiver complètement l'optimisation d'images
     unoptimized: true,
+    // Loader personnalisé pour forcer les URLs directes
+    loader: 'custom',
+    loaderFile: './lib/imageLoader.js',
     // Domaines autorisés pour les images externes
     remotePatterns: [
       {
