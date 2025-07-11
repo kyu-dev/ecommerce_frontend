@@ -37,7 +37,7 @@ export function StripeBtn({ cart }: { cart: CartItem[] }) {
       } else {
         alert("Erreur lors de la création de la session de paiement.");
       }
-    } catch (e) {
+    } catch {
       alert("Erreur lors du paiement.");
     } finally {
       setLoading(false);

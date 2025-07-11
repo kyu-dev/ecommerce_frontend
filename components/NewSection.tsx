@@ -17,7 +17,7 @@ const NewSection = async () => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/product/new/12`);
   const result = await res.json();
   console.log(result);
-  const products = result.data;
+  const products: Product[] = result.data;
   return (
     <div>
       <h3 className="p-6 text-5xl font-bold">New product</h3>

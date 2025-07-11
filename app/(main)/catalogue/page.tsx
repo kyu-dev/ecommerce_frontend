@@ -40,44 +40,54 @@ const getFilters = (searchParams?: Record<string, string>) => {
 const applyFiltersAndSort = (products: Product[], filters: Filters) => {
   let filtered = [...products];
   if (filters.category) {
-    filtered = filtered.filter((p) => p.category?.name === filters.category);
+    filtered = filtered.filter(
+      (p: Product) => p.category?.name === filters.category
+    );
   }
   if (filters.minPrice) {
-    filtered = filtered.filter((p) => p.price >= Number(filters.minPrice));
+    filtered = filtered.filter(
+      (p: Product) => p.price >= Number(filters.minPrice)
+    );
   }
   if (filters.maxPrice) {
-    filtered = filtered.filter((p) => p.price <= Number(filters.maxPrice));
+    filtered = filtered.filter(
+      (p: Product) => p.price <= Number(filters.maxPrice)
+    );
   }
   if (filters.minAlcohol) {
     filtered = filtered.filter(
-      (p) =>
+      (p: Product) =>
         typeof p.alcoholDegree === "number" &&
         p.alcoholDegree >= Number(filters.minAlcohol)
     );
   }
   if (filters.maxAlcohol) {
     filtered = filtered.filter(
-      (p) =>
+      (p: Product) =>
         typeof p.alcoholDegree === "number" &&
         p.alcoholDegree <= Number(filters.maxAlcohol)
     );
   }
   if (filters.volume) {
     filtered = filtered.filter(
-      (p) => String(p.volumeId) === String(filters.volume)
+      (p: Product) => String(p.volumeId) === String(filters.volume)
     );
   }
   if (filters.sort === "price_asc") {
-    filtered = filtered.sort((a, b) => a.price - b.price);
+    filtered = filtered.sort((a: Product, b: Product) => a.price - b.price);
   }
   if (filters.sort === "price_desc") {
-    filtered = filtered.sort((a, b) => b.price - a.price);
+    filtered = filtered.sort((a: Product, b: Product) => b.price - a.price);
   }
   if (filters.sort === "name_asc") {
-    filtered = filtered.sort((a, b) => a.name.localeCompare(b.name));
+    filtered = filtered.sort((a: Product, b: Product) =>
+      a.name.localeCompare(b.name)
+    );
   }
   if (filters.sort === "name_desc") {
-    filtered = filtered.sort((a, b) => b.name.localeCompare(a.name));
+    filtered = filtered.sort((a: Product, b: Product) =>
+      b.name.localeCompare(a.name)
+    );
   }
   return filtered;
 };

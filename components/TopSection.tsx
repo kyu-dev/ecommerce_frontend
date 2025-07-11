@@ -17,7 +17,7 @@ const TopSection = async () => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/product/top/12`);
   const result = await res.json();
   console.log(result);
-  const products = result.data;
+  const products: Product[] = result.data;
   return (
     <div>
       <h3 className="p-6 text-5xl font-bold">Top Produit</h3>
