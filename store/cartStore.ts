@@ -3,10 +3,22 @@ import { create } from "zustand";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL!;
 
+export interface Product {
+  id: number;
+  name: string;
+  price: number;
+  img: string;
+  description: string;
+  rating: number;
+  category?: { name: string };
+  alcoholDegree?: number | null;
+  volumeId?: string | number;
+}
+
 export interface CartItem {
   productId: number;
   quantity: number;
-  product?: any;
+  product?: Product;
 }
 
 interface CartStore {
@@ -75,11 +87,13 @@ export const useCartStore = create<CartStore>((set, get) => ({
     // Nouvelle logique pour parser la structure backend
     let cart: CartItem[] = [];
     if (data.data && Array.isArray(data.data.items)) {
-      cart = data.data.items.map((item: any) => ({
-        productId: item.productId,
-        quantity: item.quantity,
-        product: item.product, // On ajoute l'objet produit complet
-      }));
+      cart = data.data.items.map(
+        (item: { productId: number; quantity: number; product?: Product }) => ({
+          productId: item.productId,
+          quantity: item.quantity,
+          product: item.product, // On ajoute l'objet produit complet
+        })
+      );
     }
     set({ cart, userId, isLoaded: true });
   },
