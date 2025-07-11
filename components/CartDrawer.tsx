@@ -1,4 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 "use client";
 import { useCartDrawerStore } from "@/store/cartDrawerStore";
 import { useCartStore, CartItem } from "@/store/cartStore";
