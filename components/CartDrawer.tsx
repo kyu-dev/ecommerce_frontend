@@ -4,7 +4,7 @@ import { useCartStore, CartItem } from "@/store/cartStore";
 import { useUserStore } from "@/store/userStore";
 import { useEffect } from "react";
 import { StripeBtn } from "./StripeBtn";
-import Image from "next/image";
+// import Image from "next/image"; // Remplacé par img pour éviter l'optimisation
 
 export default function CartDrawer() {
   const { isOpen, close } = useCartDrawerStore();
@@ -55,11 +55,9 @@ export default function CartDrawer() {
               {/* Affichage image, nom, prix */}
               <div className="flex items-center gap-2 flex-1">
                 {item.product?.img && (
-                  <Image
+                  <img
                     src={item.product.img}
                     alt={item.product?.name || ""}
-                    width={48}
-                    height={48}
                     className="w-12 h-12 object-cover rounded"
                   />
                 )}
