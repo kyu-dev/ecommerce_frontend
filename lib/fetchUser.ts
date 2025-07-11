@@ -12,7 +12,7 @@ export async function fetchUser() {
     } else {
       return null;
     }
-  } catch (error) {
+  } catch {
     return null;
   }
 }

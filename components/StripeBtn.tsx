@@ -3,8 +3,9 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useUserStore } from "@/store/userStore";
+import type { CartItem } from "@/store/cartStore";
 
-export function StripeBtn({ cart }: { cart: any }) {
+export function StripeBtn({ cart }: { cart: CartItem[] }) {
   const [loading, setLoading] = useState(false);
   const { user } = useUserStore();
 

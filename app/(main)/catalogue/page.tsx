@@ -3,6 +3,28 @@ import ProductCard from "@/components/ProductCard";
 import FilterSidebar from "@/components/FilterSidebar";
 import Link from "next/link";
 
+type Product = {
+  id: string;
+  name: string;
+  price: number;
+  img: string;
+  description: string;
+  rating: number;
+  category?: { name: string };
+  alcoholDegree?: number | null;
+  volumeId?: string | number;
+};
+
+type Filters = {
+  category: string;
+  minPrice: string;
+  maxPrice: string;
+  minAlcohol: string;
+  maxAlcohol: string;
+  volume: string;
+  sort: string;
+};
+
 const getFilters = (searchParams?: Record<string, string>) => {
   return {
     category: searchParams?.category || "",
@@ -15,7 +37,7 @@ const getFilters = (searchParams?: Record<string, string>) => {
   };
 };
 
-const applyFiltersAndSort = (products: any[], filters: any) => {
+const applyFiltersAndSort = (products: Product[], filters: Filters) => {
   let filtered = [...products];
   if (filters.category) {
     filtered = filtered.filter((p) => p.category?.name === filters.category);
@@ -29,14 +51,14 @@ const applyFiltersAndSort = (products: any[], filters: any) => {
   if (filters.minAlcohol) {
     filtered = filtered.filter(
       (p) =>
-        p.alcoholDegree !== null &&
+        typeof p.alcoholDegree === "number" &&
         p.alcoholDegree >= Number(filters.minAlcohol)
     );
   }
   if (filters.maxAlcohol) {
     filtered = filtered.filter(
       (p) =>
-        p.alcoholDegree !== null &&
+        typeof p.alcoholDegree === "number" &&
         p.alcoholDegree <= Number(filters.maxAlcohol)
     );
   }
@@ -93,10 +115,10 @@ const CataloguePage = async ({
             : ""}
         </h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
-          {(filteredProducts ?? []).map((product: any) => (
+          {(filteredProducts ?? []).map((product: Product) => (
             <Link key={product.id} href={`/product/${product.id}`}>
               <ProductCard
-                productId={product.id}
+                productId={Number(product.id)}
                 title={product.name}
                 price={product.price}
                 img={product.img}

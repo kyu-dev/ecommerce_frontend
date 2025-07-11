@@ -9,7 +9,7 @@ function Hero() {
       <div className="h-180 m-6 rounded-2xl bg-[url('/banner.webp')] bg-cover bg-center bg-no-repeat flex items-center">
         <div className="max-w-2xl ml-20 space-y-6">
           <h1 className="text-6xl font-bold text-white">
-            Découvrez l'âme du vinyle
+            Découvrez l&apos;âme du vinyle
           </h1>
           <p className="text-xl text-white">
             Plongez dans notre collection exclusive de vinyles rares et

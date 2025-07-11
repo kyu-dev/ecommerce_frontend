@@ -1,10 +1,9 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 "use client";
 import { useCartDrawerStore } from "@/store/cartDrawerStore";
-import { useCartStore } from "@/store/cartStore";
+import { useCartStore, CartItem } from "@/store/cartStore";
 import { useUserStore } from "@/store/userStore";
-import { useEffect, useState } from "react";
-import { Button } from "./ui/button";
+import { useEffect } from "react";
 import { StripeBtn } from "./StripeBtn";
 
 export default function CartDrawer() {
@@ -48,9 +47,9 @@ export default function CartDrawer() {
         ) : cart.length === 0 ? (
           <p className="text-muted-foreground">Votre panier est vide.</p>
         ) : (
-          cart.map((item, idx) => (
+          cart.map((item: CartItem) => (
             <div
-              key={idx}
+              key={item.productId}
               className="flex items-center justify-between gap-2 border-b pb-2"
             >
               {/* Affichage image, nom, prix */}
