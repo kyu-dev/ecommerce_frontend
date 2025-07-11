@@ -4,12 +4,15 @@ const nextConfig: NextConfig = {
   images: {
     // Autoriser les images locales sans optimisation
     unoptimized: true,
-    // Ou spécifier les domaines autorisés
+    // Domaines autorisés pour les images externes
     remotePatterns: [
       {
-        protocol: "https",
-        hostname:
-          "ecommerce-frontend-57e99oe3o-arthurs-projects-8f9de871.vercel.app/", // Remplacez par votre domaine
+        protocol: 'https',
+        hostname: 'i.imgur.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'res.cloudinary.com',
       },
     ],
   },
