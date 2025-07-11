@@ -7,8 +7,9 @@ const nextConfig: NextConfig = {
     // Ou spécifier les domaines autorisés
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'your-domain.com', // Remplacez par votre domaine
+        protocol: "https",
+        hostname:
+          "ecommerce-frontend-57e99oe3o-arthurs-projects-8f9de871.vercel.app",
       },
     ],
   },
