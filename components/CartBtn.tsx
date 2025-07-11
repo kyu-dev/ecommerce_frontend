@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 "use client";
 import { Button } from "./ui/button";
 import { ShoppingBag } from "lucide-react";

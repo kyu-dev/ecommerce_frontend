@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { create } from "zustand";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL!;

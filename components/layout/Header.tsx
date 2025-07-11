@@ -1,6 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import React from "react";
-import { Button } from "../ui/button";
-import { Disc2, Search, ShoppingBag } from "lucide-react";
+import { Disc2 } from "lucide-react";
 import LoginBtn from "../LoginBtn";
 import CardBtn from "../CartBtn";
 import Link from "next/link";

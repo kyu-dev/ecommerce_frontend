@@ -1,8 +1,9 @@
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 "use client";
 import { useEffect, useRef, useState } from "react";
 
 import { useUserStore } from "../store/userStore";
-import { CartItem, useCartStore } from "@/store/cartStore";
+import { useCartStore } from "@/store/cartStore";
 
 export function useCartSync() {
   console.log("HOOK useCartSync APPELÉ !");

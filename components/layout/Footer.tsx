@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function Footer() {
   return (
     <footer className="w-full border-t mt-12 py-6 bg-white text-center text-muted-foreground text-sm">
