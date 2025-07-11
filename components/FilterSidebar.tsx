@@ -1,4 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 "use client";
 import React, { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";

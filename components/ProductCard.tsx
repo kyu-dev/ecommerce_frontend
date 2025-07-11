@@ -1,4 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 "use client";
 import React from "react";
 import { Card, CardFooter } from "@/components/ui/card";

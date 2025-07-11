@@ -3,6 +3,10 @@ import ProductCard from "@/components/ProductCard";
 import FilterSidebar from "@/components/FilterSidebar";
 import Link from "next/link";
 
+type PageProps = {
+  searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
+};
+
 type Product = {
   id: string;
   name: string;
@@ -25,15 +29,22 @@ type Filters = {
   sort: string;
 };
 
-const getFilters = (searchParams?: Record<string, string>) => {
+const getFilters = (searchParams?: { [key: string]: string | string[] | undefined }) => {
+  const getFirstValue = (value: string | string[] | undefined): string => {
+    if (Array.isArray(value)) {
+      return value[0] || "";
+    }
+    return value || "";
+  };
+
   return {
-    category: searchParams?.category || "",
-    minPrice: searchParams?.minPrice || "",
-    maxPrice: searchParams?.maxPrice || "",
-    minAlcohol: searchParams?.minAlcohol || "",
-    maxAlcohol: searchParams?.maxAlcohol || "",
-    volume: searchParams?.volume || "",
-    sort: searchParams?.sort || "",
+    category: getFirstValue(searchParams?.category),
+    minPrice: getFirstValue(searchParams?.minPrice),
+    maxPrice: getFirstValue(searchParams?.maxPrice),
+    minAlcohol: getFirstValue(searchParams?.minAlcohol),
+    maxAlcohol: getFirstValue(searchParams?.maxAlcohol),
+    volume: getFirstValue(searchParams?.volume),
+    sort: getFirstValue(searchParams?.sort),
   };
 };
 
@@ -92,11 +103,7 @@ const applyFiltersAndSort = (products: Product[], filters: Filters) => {
   return filtered;
 };
 
-const CataloguePage = async ({
-  searchParams,
-}: {
-  searchParams?: Record<string, string>;
-}) => {
+const CataloguePage = async ({ searchParams }: PageProps) => {
   // On récupère tous les produits (sans filtre côté backend)
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/product/get`);
   if (!res.ok) {
@@ -106,7 +113,8 @@ const CataloguePage = async ({
   const result = await res.json();
   const products = result.data;
 
-  const filters = getFilters(searchParams);
+  const resolvedSearchParams = searchParams ? await searchParams : undefined;
+  const filters = getFilters(resolvedSearchParams);
   const filteredProducts = applyFiltersAndSort(products, filters);
 
   return (

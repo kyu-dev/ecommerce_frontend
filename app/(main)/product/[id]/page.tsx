@@ -21,7 +21,7 @@ interface Product {
 }
 
 interface PageProps {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 
 import AddCardBtn from "@/components/AddCardBtn";
