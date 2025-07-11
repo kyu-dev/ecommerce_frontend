@@ -9,7 +9,7 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname:
-          "ecommerce-frontend-57e99oe3o-arthurs-projects-8f9de871.vercel.app",
+          "ecommerce-frontend-57e99oe3o-arthurs-projects-8f9de871.vercel.app/", // Remplacez par votre domaine
       },
     ],
   },
