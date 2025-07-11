@@ -25,7 +25,7 @@ interface PageProps {
 }
 
 import AddCardBtn from "@/components/AddCardBtn";
-// import Image from "next/image"; // Utilisation d'img simple pour éviter les problèmes
+import Image from "next/image";
 
 export default async function ProductPage({ params }: PageProps) {
   const { id } = await params;
@@ -47,9 +47,11 @@ export default async function ProductPage({ params }: PageProps) {
         <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 bg-white rounded-xl shadow-sm overflow-hidden">
           {/* IMAGE */}
           <div className="flex items-center justify-center bg-slate-50 aspect-square overflow-hidden">
-            <img
+            <Image
               src={product.img}
               alt={product.name}
+              width={400}
+              height={400}
               className="w-full h-full object-cover"
             />
           </div>

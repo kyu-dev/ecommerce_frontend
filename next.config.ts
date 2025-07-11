@@ -2,8 +2,21 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
-    // Désactiver complètement l'optimisation d'images
-    unoptimized: true,
+    // Autoriser les domaines externes pour les images
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'i.imgur.com',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'imgur.com',
+        port: '',
+        pathname: '/**',
+      },
+    ],
   },
 };
 
