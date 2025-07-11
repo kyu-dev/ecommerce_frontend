@@ -23,6 +23,8 @@ const ProductCard: React.FC<ProductCardProps> = ({
   description,
   rating = 0,
 }) => {
+  // Debug : afficher la valeur de l'image à chaque rendu
+  console.log("ProductCard img:", img);
   const { user } = useUserStore();
   const { addToBackendCart, addToLocalCart } = useCartStore();
 

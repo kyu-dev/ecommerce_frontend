@@ -99,10 +99,15 @@ export const useCartStore = create<CartStore>((set, get) => ({
   },
 
   addToBackendCart: async (userId, item) => {
+    // On n'envoie que productId et quantity au backend
+    const payload = {
+      productId: item.productId,
+      quantity: item.quantity,
+    };
     await fetch(`${API_URL}/cart/${userId}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(item),
+      body: JSON.stringify(payload),
       credentials: "include",
     });
     await get().loadBackendCart(userId);
