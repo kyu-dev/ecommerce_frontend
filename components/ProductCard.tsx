@@ -1,9 +1,10 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { Card, CardFooter } from "@/components/ui/card";
 import { Button } from "./ui/button";
 import { useCartStore } from "@/store/cartStore";
 import { useUserStore } from "@/store/userStore";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 
 interface ProductCardProps {
@@ -24,14 +25,26 @@ const ProductCard: React.FC<ProductCardProps> = ({
   rating = 0,
 }) => {
   const { user } = useUserStore();
-  const { addToBackendCart, addToLocalCart } = useCartStore();
+  const { addToBackendCart } = useCartStore();
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
-  const handleAddToCart = (e: React.MouseEvent) => {
+  const handleAddToCart = async (e: React.MouseEvent) => {
     e.preventDefault();
-    if (user) {
-      addToBackendCart(user.id, { productId, quantity: 1 });
-    } else {
-      addToLocalCart({ productId, quantity: 1 });
+    
+    // Si pas connecté, rediriger vers la page de connexion
+    if (!user?.id) {
+      router.push("/auth/login");
+      return;
+    }
+
+    setIsLoading(true);
+    try {
+      await addToBackendCart(user.id, { productId, quantity: 1 });
+    } catch (error) {
+      console.error("Erreur lors de l'ajout au panier:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -67,8 +80,12 @@ const ProductCard: React.FC<ProductCardProps> = ({
         <div className="flex items-center justify-between w-full mt-2">
           <span className="text-xl font-extrabold text-primary">{price} €</span>
         </div>
-        <Button type="button" onClick={handleAddToCart}>
-          Ajouter au panier
+        <Button 
+          type="button" 
+          onClick={handleAddToCart}
+          disabled={isLoading}
+        >
+          {!user?.id ? "Se connecter pour ajouter" : isLoading ? "Ajout..." : "Ajouter au panier"}
         </Button>
       </CardFooter>
     </Card>
