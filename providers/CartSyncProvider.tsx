@@ -1,4 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 "use client";
 import { ReactNode } from "react";
 import { useCartSync } from "@/hooks/useCartSync";
