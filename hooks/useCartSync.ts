@@ -1,4 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { useUserStore } from "../store/userStore";
@@ -10,52 +9,45 @@ export function useCartSync() {
     useCartStore();
   const { user } = useUserStore();
 
-  const hasSynced = useRef(false);
+  const initDone = useRef(false);
   const [localCartLoaded, setLocalCartLoaded] = useState(false);
 
   // Charger le panier local une seule fois au montage
   useEffect(() => {
     if (!localCartLoaded) {
+      console.log("CHARGEMENT PANIER LOCAL");
       loadLocalCart();
       setLocalCartLoaded(true);
     }
   }, [loadLocalCart, localCartLoaded]);
 
-  // Gérer la connexion/déconnexion de l'utilisateur
+  // Initialisation une seule fois quand l'utilisateur est connecté et le panier local chargé
   useEffect(() => {
-    console.log("DEBUG SYNC", {
-      user,
-      cart,
-      hasSynced: hasSynced.current,
-      localCartLoaded,
-    });
+    if (user?.id && localCartLoaded && !initDone.current) {
+      initDone.current = true;
+      console.log("INITIALISATION PANIER POUR UTILISATEUR:", user.id);
 
-    if (user?.id && localCartLoaded && !hasSynced.current) {
-      hasSynced.current = true;
-      console.log("SYNC PANIER LOCAL VERS BACKEND", cart, user.id);
+      // 1. Sauvegarder le panier local actuel
+      const localCartItems = [...cart];
+      console.log("PANIER LOCAL SAUVEGARDÉ:", localCartItems);
 
-      // Utiliser la nouvelle fonction de synchronisation intelligente
-      syncLocalToBackend(user.id)
-        .then(() => {
-          console.log("SYNCHRONISATION TERMINÉE");
-        })
-        .catch((error) => {
-          console.error("ERREUR DE SYNCHRONISATION:", error);
-          hasSynced.current = false; // Permettre une nouvelle tentative
-        });
-    } else if (user?.id && hasSynced.current) {
-      // Si l'utilisateur est déjà connecté et que la sync a eu lieu,
-      // on charge juste le panier backend
-      loadBackendCart(user.id);
+      // 2. Charger le panier backend
+      loadBackendCart(user.id).then(() => {
+        console.log("PANIER BACKEND CHARGÉ");
+
+        // 3. Si le panier local avait des items et qu'on veut les synchroniser
+        if (localCartItems.length > 0) {
+          console.log("SYNCHRONISATION DU PANIER LOCAL");
+          // Remettre temporairement les items locaux pour la synchronisation
+          useCartStore.setState({ cart: localCartItems });
+          syncLocalToBackend(user.id).catch((error) => {
+            console.error("ERREUR DE SYNCHRONISATION:", error);
+          });
+        }
+      });
     } else if (!user?.id) {
-      // Si l'utilisateur se déconnecte, on remet le flag à false
-      hasSynced.current = false;
+      // Réinitialiser quand l'utilisateur se déconnecte
+      initDone.current = false;
     }
-  }, [
-    user?.id,
-    localCartLoaded,
-    cart.length,
-    syncLocalToBackend,
-    loadBackendCart,
-  ]);
+  }, [user?.id, localCartLoaded]);
 }
