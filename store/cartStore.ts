@@ -1,12 +1,19 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { create } from "zustand";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL!;
 
+interface Product {
+  id: number;
+  name: string;
+  price: number;
+  img: string;
+  description: string;
+}
+
 export interface CartItem {
   productId: number;
   quantity: number;
-  product?: any;
+  product?: Product;
 }
 
 interface CartStore {

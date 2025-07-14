@@ -1,8 +1,8 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import Image from "next/image";
 
 export function RegisterForm({
   className,
@@ -42,10 +42,12 @@ export function RegisterForm({
           </span>
         </div>
         <Button variant="outline" className="w-full">
-          <img //faut pas le dire ça vient de wikipedia
+          <Image
             src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Google_Favicon_2025.svg/2506px-Google_Favicon_2025.svg.png"
             alt="Google logo"
             className="mr-2 h-4 w-4"
+            width={16}
+            height={16}
           />
           Sign up with Google
         </Button>

@@ -1,4 +1,6 @@
 import { LoginForm } from "@/components/LoginForm";
+import Image from "next/image";
+
 export default function LoginPage() {
   return (
     <div className="grid min-h-svh lg:grid-cols-2">
@@ -11,10 +13,12 @@ export default function LoginPage() {
         </div>
       </div>
       <div className="bg-muted relative hidden lg:block">
-        <img
+        <Image
           src="/banner.webp"
           alt="Image"
           className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
+          fill
+          priority
         />
       </div>
     </div>

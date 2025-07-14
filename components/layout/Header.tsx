@@ -1,4 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import React from "react";
 import { Disc2 } from "lucide-react";
 import LoginBtn from "../LoginBtn";

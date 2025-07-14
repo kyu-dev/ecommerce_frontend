@@ -1,10 +1,10 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 "use client";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useUserStore } from "@/store/userStore";
+import { CartItem } from "@/store/cartStore";
 
-export function StripeBtn({ cart }: { cart: any }) {
+export function StripeBtn({ cart }: { cart: CartItem[] }) {
   const [loading, setLoading] = useState(false);
   const { user } = useUserStore();
 
@@ -36,7 +36,7 @@ export function StripeBtn({ cart }: { cart: any }) {
       } else {
         alert("Erreur lors de la création de la session de paiement.");
       }
-    } catch (e) {
+    } catch {
       alert("Erreur lors du paiement.");
     } finally {
       setLoading(false);

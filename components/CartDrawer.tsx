@@ -1,11 +1,10 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 "use client";
 import { useCartDrawerStore } from "@/store/cartDrawerStore";
 import { useCartStore } from "@/store/cartStore";
 import { useUserStore } from "@/store/userStore";
-import { useEffect, useState } from "react";
-import { Button } from "./ui/button";
+import { useEffect } from "react";
 import { StripeBtn } from "./StripeBtn";
+import Image from "next/image";
 
 export default function CartDrawer() {
   const { isOpen, close } = useCartDrawerStore();
@@ -56,10 +55,12 @@ export default function CartDrawer() {
               {/* Affichage image, nom, prix */}
               <div className="flex items-center gap-2 flex-1">
                 {item.product?.img && (
-                  <img
+                  <Image
                     src={item.product.img}
                     alt={item.product?.name || ""}
                     className="w-12 h-12 object-cover rounded"
+                    width={48}
+                    height={48}
                   />
                 )}
                 <div>

@@ -1,20 +1,8 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "@/app/globals.css";
 import { ReactNode } from "react";
 import CartDrawer from "@/components/CartDrawer";
 import CartSyncProvider from "@/providers/CartSyncProvider";
-
-const geistSans = Geist({
-  subsets: ["latin"],
-  weight: ["400", "700"],
-  variable: "--font-geist-sans",
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   title: "Create Next App",

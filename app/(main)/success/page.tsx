@@ -28,7 +28,7 @@ const SuccessPage = () => {
           href="/"
           className="mt-4 px-6 py-2 bg-yellow-400 text-black font-semibold rounded-full shadow hover:bg-yellow-300 transition"
         >
-          Retour à l'accueil
+          Retour à l&apos;accueil
         </Link>
       </div>
     </main>

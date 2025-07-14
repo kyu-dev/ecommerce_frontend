@@ -1,10 +1,10 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 "use client";
 import React from "react";
 import { Card, CardFooter } from "@/components/ui/card";
 import { Button } from "./ui/button";
 import { useCartStore } from "@/store/cartStore";
 import { useUserStore } from "@/store/userStore";
+import Image from "next/image";
 
 interface ProductCardProps {
   productId: number;
@@ -38,10 +38,12 @@ const ProductCard: React.FC<ProductCardProps> = ({
   return (
     <Card className="group p-0 shadow-md border overflow-hidden hover:shadow-xl transition-shadow duration-200 cursor-pointer">
       <div className="relative overflow-hidden ">
-        <img
+        <Image
           src={img}
           alt={title}
           className="w-full h-48 object-cover  group-hover:scale-105 transition-transform duration-200"
+          width={300}
+          height={192}
         />
         <div className="absolute top-2 left-2 flex items-center gap-1 bg-white/90 rounded-full px-2 py-0.5 shadow text-xs">
           {Array.from({ length: 5 }).map((_, i) => (

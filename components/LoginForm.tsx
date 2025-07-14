@@ -1,9 +1,9 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
+import Image from "next/image";
 
 export function LoginForm({
   className,
@@ -46,10 +46,12 @@ export function LoginForm({
           <Link
             href={`${process.env.NEXT_PUBLIC_API_URL}/authentication/google`}
           >
-            <img
+            <Image
               src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Google_Favicon_2025.svg/2506px-Google_Favicon_2025.svg.png"
               alt="Logo Google"
               className="mr-2 h-4 w-4"
+              width={16}
+              height={16}
             />
             Connexion avec Google
           </Link>

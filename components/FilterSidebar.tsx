@@ -1,4 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 "use client";
 import React, { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -14,7 +13,6 @@ const sortOptions = [
   { value: "name_asc", label: "Nom A-Z" },
   { value: "name_desc", label: "Nom Z-A" },
 ];
-const volumes = [25, 33, 50, 75, 100];
 
 const volumeMap = {
   1: 33,
