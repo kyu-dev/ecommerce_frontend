@@ -20,16 +20,11 @@ interface CartStore {
   cart: CartItem[];
   userId: string | null;
   isLoaded: boolean;
-  loadLocalCart: () => void;
-  saveLocalCart: () => void;
-  addToLocalCart: (item: CartItem) => void;
-  removeFromLocalCart: (productId: number) => void;
-  clearLocalCart: () => void;
   loadBackendCart: (userId: string) => Promise<void>;
   addToBackendCart: (userId: string, item: CartItem) => Promise<void>;
   removeFromBackendCart: (userId: string, productId: number) => Promise<void>;
   clearBackendCart: (userId: string) => Promise<void>;
-  syncLocalToBackend: (userId: string) => Promise<void>;
+  clearCart: () => void;
   setUserId: (userId: string | null) => void;
 }
 
@@ -38,40 +33,8 @@ export const useCartStore = create<CartStore>((set, get) => ({
   userId: null,
   isLoaded: false,
 
-  loadLocalCart: () => {
-    if (typeof window === "undefined") return;
-    const cart = JSON.parse(localStorage.getItem("cart") || "[]");
-    set({ cart, isLoaded: true });
-  },
-
-  saveLocalCart: () => {
-    if (typeof window === "undefined") return;
-    localStorage.setItem("cart", JSON.stringify(get().cart));
-  },
-
-  addToLocalCart: (item) => {
-    const cart = [...get().cart];
-    const idx = cart.findIndex((i) => i.productId === item.productId);
-    if (idx > -1) {
-      cart[idx].quantity += item.quantity;
-    } else {
-      cart.push(item);
-    }
-    set({ cart });
-    get().saveLocalCart();
-  },
-
-  removeFromLocalCart: (productId) => {
-    const cart = get().cart.filter((i) => i.productId !== productId);
-    set({ cart });
-    get().saveLocalCart();
-  },
-
-  clearLocalCart: () => {
-    set({ cart: [] });
-    if (typeof window !== "undefined") {
-      localStorage.removeItem("cart");
-    }
+  clearCart: () => {
+    set({ cart: [], isLoaded: false });
   },
 
   loadBackendCart: async (userId) => {
@@ -119,52 +82,6 @@ export const useCartStore = create<CartStore>((set, get) => ({
       credentials: "include",
     });
     await get().loadBackendCart(userId);
-  },
-
-  syncLocalToBackend: async (userId: string) => {
-    const localCart = get().cart;
-    if (localCart.length === 0) return;
-
-    // D'abord, charger le panier backend pour éviter les doublons
-    await get().loadBackendCart(userId);
-    const backendCart = get().cart;
-
-    // Synchroniser chaque item local vers le backend
-    for (const localItem of localCart) {
-      const existingItem = backendCart.find(
-        (item) => item.productId === localItem.productId
-      );
-
-      if (existingItem) {
-        // Si l'item existe déjà, on met à jour la quantité (on prend le max)
-        const newQuantity = Math.max(existingItem.quantity, localItem.quantity);
-        if (newQuantity !== existingItem.quantity) {
-          await fetch(`${API_URL}/cart/${userId}`, {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              productId: localItem.productId,
-              quantity: newQuantity,
-            }),
-            credentials: "include",
-          });
-        }
-      } else {
-        // Si l'item n'existe pas, on l'ajoute
-        await fetch(`${API_URL}/cart/${userId}`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(localItem),
-          credentials: "include",
-        });
-      }
-    }
-
-    // Recharger le panier backend après synchronisation
-    await get().loadBackendCart(userId);
-
-    // Vider le panier local après synchronisation réussie
-    get().clearLocalCart();
   },
 
   setUserId: (userId) => set({ userId }),

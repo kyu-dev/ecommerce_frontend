@@ -2,6 +2,7 @@
 import { useCartStore } from "@/store/cartStore";
 import { useUserStore } from "@/store/userStore";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 
 interface AddCardBtnProps {
@@ -11,15 +12,27 @@ interface AddCardBtnProps {
 
 export default function AddCardBtn({ productId, stock }: AddCardBtnProps) {
   const { user } = useUserStore();
-  const { addToBackendCart, addToLocalCart } = useCartStore();
+  const { addToBackendCart } = useCartStore();
   const [qty, setQty] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
-  const handleAddToCart = (e: React.FormEvent) => {
+  const handleAddToCart = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (user) {
-      addToBackendCart(user.id, { productId, quantity: qty });
-    } else {
-      addToLocalCart({ productId, quantity: qty });
+
+    // Si pas connecté, rediriger vers la page de connexion
+    if (!user?.id) {
+      router.push("/auth/login");
+      return;
+    }
+
+    setIsLoading(true);
+    try {
+      await addToBackendCart(user.id, { productId, quantity: qty });
+    } catch (error) {
+      console.error("Erreur lors de l'ajout au panier:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -37,9 +50,13 @@ export default function AddCardBtn({ productId, stock }: AddCardBtnProps) {
       <Button
         type="submit"
         className="px-6 py-2 text-base font-semibold bg-primary text-white rounded-lg hover:bg-primary/90 disabled:opacity-60 transition-all duration-200"
-        disabled={stock === 0}
+        disabled={stock === 0 || isLoading}
       >
-        Ajouter au panier
+        {!user?.id
+          ? "Se connecter pour ajouter"
+          : isLoading
+          ? "Ajout..."
+          : "Ajouter au panier"}
       </Button>
     </form>
   );

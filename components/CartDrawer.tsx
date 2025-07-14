@@ -3,23 +3,28 @@ import { useCartDrawerStore } from "@/store/cartDrawerStore";
 import { useCartStore } from "@/store/cartStore";
 import { useUserStore } from "@/store/userStore";
 import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { StripeBtn } from "./StripeBtn";
 import Image from "next/image";
 
 export default function CartDrawer() {
   const { isOpen, close } = useCartDrawerStore();
-  const { cart, userId, isLoaded } = useCartStore();
+  const { cart, isLoaded, removeFromBackendCart } = useCartStore();
   const { user } = useUserStore();
-  // On n'a plus besoin de isLoading local, on utilise isLoaded du store
+  const router = useRouter();
 
+  // Fermer le drawer et rediriger si pas connecté
   useEffect(() => {
-    // Si l'utilisateur est connecté et que le panier est vide, on considère que ça charge
-    // if (userId && cart.length === 0) {
-    //   setIsLoading(true);
-    // } else {
-    //   setIsLoading(false);
-    // }
-  }, [userId, cart]);
+    if (isOpen && !user?.id) {
+      close();
+      router.push("/auth/login");
+    }
+  }, [isOpen, user?.id, close, router]);
+
+  // Ne pas afficher le drawer si pas connecté
+  if (!user?.id) {
+    return null;
+  }
 
   const total = cart.reduce((acc, item) => {
     if (item.product && typeof item.product.price === "number") {
@@ -76,15 +81,7 @@ export default function CartDrawer() {
               <button
                 className="text-red-500 hover:text-red-700 text-xl px-2"
                 onClick={() => {
-                  if (user) {
-                    // connecté : supprime du backend
-                    useCartStore
-                      .getState()
-                      .removeFromBackendCart(user.id, item.productId);
-                  } else {
-                    // non connecté : supprime du local
-                    useCartStore.getState().removeFromLocalCart(item.productId);
-                  }
+                  removeFromBackendCart(user.id, item.productId);
                 }}
                 title="Supprimer"
               >
