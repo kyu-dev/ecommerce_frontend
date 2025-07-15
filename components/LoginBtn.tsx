@@ -21,7 +21,7 @@ const LoginBtn = () => {
   const handleLogout = async () => {
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/auth/logout`,
+        `${process.env.NEXT_PUBLIC_API_URL}/authentication/logout`,
         {
           method: "POST",
           credentials: "include",
