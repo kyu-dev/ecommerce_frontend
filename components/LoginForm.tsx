@@ -9,23 +9,9 @@ export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"form">) {
-  const handleGoogleLogin = async () => {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/authentication/google`,
-      {
-        method: "GET",
-        credentials: "include",
-      }
-    );
-
-    if (res.ok) {
-      const data = await res.json();
-      if (data.redirectUrl) {
-        window.location.href = data.redirectUrl;
-      }
-    } else {
-      console.error("Erreur lors de la tentative de connexion avec Google");
-    }
+  const handleGoogleLogin = () => {
+    // Redirection directe vers votre backend OAuth
+    window.location.href = `${process.env.NEXT_PUBLIC_API_URL}/authentication/google`;
   };
 
   return (
