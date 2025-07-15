@@ -18,7 +18,29 @@ const LoginBtn = () => {
     getUser();
   }, [setUser]);
 
-  if (loading || user) return null;
+  const handleLogout = async () => {
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/auth/logout`,
+        {
+          method: "POST",
+          credentials: "include",
+        }
+      );
+
+      if (response.ok) {
+        setUser(null);
+      }
+    } catch (error) {
+      console.error("Logout failed:", error);
+    }
+  };
+
+  if (loading) return null;
+
+  if (user) {
+    return <Button onClick={handleLogout}>Logout</Button>;
+  }
 
   return (
     <Link href="/auth/login">

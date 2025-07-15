@@ -1,14 +1,33 @@
+"use client";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import Link from "next/link";
 import Image from "next/image";
 
 export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"form">) {
+  const handleGoogleLogin = async () => {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/authentication/google`,
+      {
+        method: "GET",
+        credentials: "include",
+      }
+    );
+
+    if (res.ok) {
+      const data = await res.json();
+      if (data.redirectUrl) {
+        window.location.href = data.redirectUrl;
+      }
+    } else {
+      console.error("Erreur lors de la tentative de connexion avec Google");
+    }
+  };
+
   return (
     <form className={cn("flex flex-col gap-6", className)} {...props}>
       <div className="flex flex-col items-center gap-2 text-center">
@@ -42,19 +61,20 @@ export function LoginForm({
             Or continue with
           </span>
         </div>
-        <Button variant="outline" className="w-full" asChild>
-          <Link
-            href={`${process.env.NEXT_PUBLIC_API_URL}/authentication/google`}
-          >
-            <Image
-              src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Google_Favicon_2025.svg/2506px-Google_Favicon_2025.svg.png"
-              alt="Logo Google"
-              className="mr-2 h-4 w-4"
-              width={16}
-              height={16}
-            />
-            Connexion avec Google
-          </Link>
+        <Button
+          variant="outline"
+          className="w-full"
+          type="button"
+          onClick={handleGoogleLogin}
+        >
+          <Image
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Google_Favicon_2025.svg/2506px-Google_Favicon_2025.svg.png"
+            alt="Logo Google"
+            className="mr-2 h-4 w-4"
+            width={16}
+            height={16}
+          />
+          Connexion avec Google
         </Button>
       </div>
       <div className="text-center text-sm">
