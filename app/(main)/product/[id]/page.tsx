@@ -1,3 +1,4 @@
+import AddCardBtn from "@/components/AddCardBtn";
 interface Product {
   id: number;
   name: string;
@@ -24,9 +25,6 @@ interface ProductPageProps {
   params: Promise<{ id: string }>;
 }
 
-import AddCardBtn from "@/components/AddCardBtn";
-import Image from "next/image";
-
 export default async function ProductPage({ params }: ProductPageProps) {
   const { id } = await params;
 
@@ -47,13 +45,12 @@ export default async function ProductPage({ params }: ProductPageProps) {
         <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 bg-white rounded-xl shadow-sm overflow-hidden">
           {/* IMAGE */}
           <div className="flex items-center justify-center bg-slate-50 aspect-square overflow-hidden">
-            <Image
+            <img
               src={product.img}
               alt={product.name}
               className="w-full h-full object-cover"
               width={500}
               height={500}
-              priority
             />
           </div>
 

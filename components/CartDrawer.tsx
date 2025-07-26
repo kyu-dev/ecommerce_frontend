@@ -5,7 +5,6 @@ import { useUserStore } from "@/store/userStore";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { StripeBtn } from "./StripeBtn";
-import Image from "next/image";
 
 export default function CartDrawer() {
   const { isOpen, close } = useCartDrawerStore();
@@ -60,7 +59,7 @@ export default function CartDrawer() {
               {/* Affichage image, nom, prix */}
               <div className="flex items-center gap-2 flex-1">
                 {item.product?.img && (
-                  <Image
+                  <img
                     src={item.product.img}
                     alt={item.product?.name || ""}
                     className="w-12 h-12 object-cover rounded"

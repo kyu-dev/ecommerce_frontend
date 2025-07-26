@@ -5,8 +5,6 @@ import { Button } from "./ui/button";
 import { useCartStore } from "@/store/cartStore";
 import { useUserStore } from "@/store/userStore";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
-
 interface ProductCardProps {
   productId: number;
   title: string;
@@ -31,7 +29,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
   const handleAddToCart = async (e: React.MouseEvent) => {
     e.preventDefault();
-    
+
     // Si pas connecté, rediriger vers la page de connexion
     if (!user?.id) {
       router.push("/auth/login");
@@ -51,7 +49,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   return (
     <Card className="group p-0 shadow-md border overflow-hidden hover:shadow-xl transition-shadow duration-200 cursor-pointer">
       <div className="relative overflow-hidden ">
-        <Image
+        <img
           src={img}
           alt={title}
           className="w-full h-48 object-cover  group-hover:scale-105 transition-transform duration-200"
@@ -80,12 +78,12 @@ const ProductCard: React.FC<ProductCardProps> = ({
         <div className="flex items-center justify-between w-full mt-2">
           <span className="text-xl font-extrabold text-primary">{price} €</span>
         </div>
-        <Button 
-          type="button" 
-          onClick={handleAddToCart}
-          disabled={isLoading}
-        >
-          {!user?.id ? "Se connecter pour ajouter" : isLoading ? "Ajout..." : "Ajouter au panier"}
+        <Button type="button" onClick={handleAddToCart} disabled={isLoading}>
+          {!user?.id
+            ? "Se connecter pour ajouter"
+            : isLoading
+            ? "Ajout..."
+            : "Ajouter au panier"}
         </Button>
       </CardFooter>
     </Card>
