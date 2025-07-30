@@ -7,6 +7,8 @@ import Image from "next/image";
 import { useState } from "react";
 import { authUtils } from "@/lib/auth";
 import { useRouter } from "next/navigation";
+import { fetchUser } from "@/lib/fetchUser";
+import { useUserStore } from "@/store/userStore";
 
 export function LoginForm({
   className,
@@ -17,6 +19,7 @@ export function LoginForm({
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const router = useRouter();
+  const { setUser } = useUserStore();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -24,6 +27,8 @@ export function LoginForm({
     setError("");
 
     try {
+      console.log("Login classique - Début de l'authentification");
+
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/authentication/login`,
         {
@@ -36,18 +41,41 @@ export function LoginForm({
       );
 
       const data = await response.json();
+      console.log("Login classique - Réponse:", data);
 
       if (response.ok) {
+        console.log("Login classique - Succès, token reçu");
+
         // Stocker le token dans localStorage
         authUtils.setToken(data.token);
+        console.log("Login classique - Token stocké");
 
-        // Rediriger vers la page d'accueil
-        router.push("/");
-        window.location.reload(); // Pour rafraîchir l'état d'authentification
+        // Mettre à jour l'état utilisateur
+        try {
+          const userId = await fetchUser();
+          console.log("Login classique - UserId récupéré:", userId);
+
+          if (userId) {
+            setUser({ id: userId });
+            console.log("Login classique - État utilisateur mis à jour");
+
+            // Déclencher un événement pour notifier les autres composants
+            window.dispatchEvent(new CustomEvent("authStateChanged"));
+          }
+
+          // Rediriger vers la page d'accueil
+          router.push("/");
+        } catch (fetchError) {
+          console.error("Login classique - Erreur fetchUser:", fetchError);
+          // Rediriger même en cas d'erreur car le token est stocké
+          router.push("/");
+        }
       } else {
+        console.log("Login classique - Erreur:", data.message);
         setError(data.message || "Erreur de connexion");
       }
-    } catch {
+    } catch (error) {
+      console.error("Login classique - Erreur dans catch:", error);
       setError("Erreur de connexion");
     } finally {
       setIsLoading(false);

@@ -8,6 +8,5 @@ export default function CartSyncProvider({
   children: ReactNode;
 }) {
   useCartSync();
-  console.log("CartSyncProvider MONTÉ !");
   return <>{children}</>;
 }

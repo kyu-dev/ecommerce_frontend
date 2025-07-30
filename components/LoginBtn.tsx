@@ -16,7 +16,22 @@ const LoginBtn = () => {
       setUser(id ? { id } : null);
       setLoading(false);
     };
+
     getUser();
+
+    // Écouter les changements d'état d'authentification
+    const handleAuthChange = () => {
+      console.log(
+        "Événement authStateChanged reçu, rechargement de l'utilisateur"
+      );
+      getUser();
+    };
+
+    window.addEventListener("authStateChanged", handleAuthChange);
+
+    return () => {
+      window.removeEventListener("authStateChanged", handleAuthChange);
+    };
   }, [setUser]);
 
   const handleLogout = async () => {

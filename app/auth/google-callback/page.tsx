@@ -12,62 +12,68 @@ function GoogleCallbackContent() {
   const [isProcessing, setIsProcessing] = useState(false);
 
   useEffect(() => {
-    let isMounted = true;
+    const token = searchParams.get("token");
+    const userParam = searchParams.get("user");
 
-    const handleGoogleCallback = async () => {
-      // Éviter les exécutions multiples
-      if (isProcessing || !isMounted) return;
+    console.log("Google Callback - Token:", token ? "présent" : "absent");
+    console.log(
+      "Google Callback - UserParam:",
+      userParam ? "présent" : "absent"
+    );
 
-      const token = searchParams.get("token");
-      const userParam = searchParams.get("user");
-
-      // Si aucun token, rediriger vers login
-      if (!token) {
-        if (isMounted) router.replace("/auth/login");
-        return;
-      }
-
+    if (token && !isProcessing) {
       setIsProcessing(true);
+      console.log("Début du processus d'authentification Google");
 
-      try {
-        // Stocker le token dans localStorage
-        authUtils.setToken(token);
+      // Stocker le token dans localStorage
+      authUtils.setToken(token);
+      console.log("Token stocké dans localStorage");
 
-        // Optionnel: stocker aussi les infos utilisateur si nécessaire
-        if (userParam) {
-          try {
-            JSON.parse(decodeURIComponent(userParam));
-            // Vous pouvez stocker les infos utilisateur si nécessaire
-            // localStorage.setItem('user', JSON.stringify(user));
-          } catch (e) {
-            console.error("Erreur parsing user data:", e);
-          }
+      // Optionnel: stocker aussi les infos utilisateur si nécessaire
+      if (userParam) {
+        try {
+          const userData = JSON.parse(decodeURIComponent(userParam));
+          console.log("Données utilisateur:", userData);
+        } catch (e) {
+          console.error("Erreur parsing user data:", e);
         }
-
-        // Mettre à jour immédiatement l'état utilisateur
-        const userId = await fetchUser();
-        if (isMounted) {
-          setUser(userId ? { id: userId } : null);
-          // Rediriger vers la page d'accueil sans reload
-          router.replace("/");
-        }
-      } catch (error) {
-        console.error("Erreur lors de l'authentification Google:", error);
-        // En cas d'erreur, supprimer le token et rediriger vers login
-        authUtils.removeToken();
-        if (isMounted) router.replace("/auth/login");
       }
-    };
 
-    // Éviter d'exécuter plusieurs fois si déjà en cours de traitement
-    if (searchParams.get("token") && !isProcessing) {
-      handleGoogleCallback();
+      // Redirection immédiate
+      console.log("Redirection immédiate vers /");
+      console.log("window.location avant redirection:", window.location.href);
+
+      // Mise à jour de l'état utilisateur avant redirection
+      console.log("AVANT APPEL fetchUser()");
+      fetchUser()
+        .then((userId) => {
+          console.log("DANS LE THEN de fetchUser, userId:", userId);
+          if (userId) {
+            setUser({ id: userId });
+            console.log("État utilisateur mis à jour avec ID:", userId);
+
+            // Déclencher un événement pour notifier les autres composants
+            window.dispatchEvent(new CustomEvent("authStateChanged"));
+          }
+          // Redirection après mise à jour de l'état
+          console.log("REDIRECTION window.location.href = '/'");
+          window.location.href = "/";
+        })
+        .catch((error) => {
+          console.error("DANS LE CATCH de fetchUser:", error);
+          // Redirection même en cas d'erreur
+          console.log("REDIRECTION (après erreur) window.location.href = '/'");
+          window.location.href = "/";
+        });
+
+      console.log("APRÈS APPEL fetchUser() (asynchrone)");
+
+      console.log("Redirection effectuée");
+    } else if (!token) {
+      console.log("Aucun token trouvé, redirection vers login");
+      router.replace("/auth/login");
     }
-
-    return () => {
-      isMounted = false;
-    };
-  }, [router, searchParams, setUser, isProcessing]);
+  }, [searchParams, router, isProcessing]);
 
   return (
     <div className="flex items-center justify-center min-h-screen">
