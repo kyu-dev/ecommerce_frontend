@@ -16,7 +16,6 @@ function GoogleCallbackContent() {
       if (isProcessing) return;
 
       const token = searchParams.get("token");
-      const userParam = searchParams.get("user");
 
       if (!token) {
         router.replace("/auth/login");
