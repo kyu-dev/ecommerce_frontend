@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useUserStore } from "@/store/userStore";
 import { CartItem } from "@/store/cartStore";
+import { authUtils } from "@/lib/auth";
 
 export function StripeBtn({ cart }: { cart: CartItem[] }) {
   const [loading, setLoading] = useState(false);
@@ -21,13 +22,12 @@ export function StripeBtn({ cart }: { cart: CartItem[] }) {
     }
     setLoading(true);
     try {
-      const res = await fetch(
+      const res = await authUtils.authenticatedFetch(
         `${API_URL}/order/${user.id}/create-checkout-session`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ cart }),
-          credentials: "include",
         }
       );
       const data = await res.json();

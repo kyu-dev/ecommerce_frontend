@@ -4,6 +4,7 @@ import { Button } from "./ui/button";
 import Link from "next/link";
 import { useUserStore } from "@/store/userStore";
 import { fetchUser } from "@/lib/fetchUser";
+import { authUtils } from "@/lib/auth";
 
 const LoginBtn = () => {
   const { user, setUser } = useUserStore();
@@ -20,19 +21,28 @@ const LoginBtn = () => {
 
   const handleLogout = async () => {
     try {
-      const response = await fetch(
+      // Appeler l'endpoint de logout (optionnel, pour nettoyer côté serveur si nécessaire)
+      await authUtils.authenticatedFetch(
         `${process.env.NEXT_PUBLIC_API_URL}/authentication/logout`,
         {
           method: "POST",
-          credentials: "include",
         }
       );
 
-      if (response.ok) {
-        setUser(null);
-      }
+      // Supprimer le token du localStorage
+      authUtils.removeToken();
+
+      // Mettre à jour l'état local
+      setUser(null);
+
+      // Rafraîchir la page pour s'assurer que tous les états sont réinitialisés
+      window.location.reload();
     } catch (error) {
       console.error("Logout failed:", error);
+      // Même en cas d'erreur, on supprime le token local
+      authUtils.removeToken();
+      setUser(null);
+      window.location.reload();
     }
   };
 

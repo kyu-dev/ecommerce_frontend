@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { authUtils } from "@/lib/auth";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL!;
 
@@ -38,9 +39,7 @@ export const useCartStore = create<CartStore>((set, get) => ({
   },
 
   loadBackendCart: async (userId) => {
-    const res = await fetch(`${API_URL}/cart/${userId}`, {
-      credentials: "include",
-    });
+    const res = await authUtils.authenticatedFetch(`${API_URL}/cart/${userId}`);
     if (!res.ok) {
       set({ isLoaded: true });
       return;
@@ -59,27 +58,27 @@ export const useCartStore = create<CartStore>((set, get) => ({
   },
 
   addToBackendCart: async (userId, item) => {
-    await fetch(`${API_URL}/cart/${userId}`, {
+    await authUtils.authenticatedFetch(`${API_URL}/cart/${userId}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(item),
-      credentials: "include",
     });
     await get().loadBackendCart(userId);
   },
 
   removeFromBackendCart: async (userId, productId) => {
-    await fetch(`${API_URL}/cart/${userId}/item/${productId}`, {
-      method: "DELETE",
-      credentials: "include",
-    });
+    await authUtils.authenticatedFetch(
+      `${API_URL}/cart/${userId}/item/${productId}`,
+      {
+        method: "DELETE",
+      }
+    );
     await get().loadBackendCart(userId);
   },
 
   clearBackendCart: async (userId) => {
-    await fetch(`${API_URL}/cart/${userId}/clearCart`, {
+    await authUtils.authenticatedFetch(`${API_URL}/cart/${userId}/clearCart`, {
       method: "DELETE",
-      credentials: "include",
     });
     await get().loadBackendCart(userId);
   },
