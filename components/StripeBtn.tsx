@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useUserStore } from "@/store/userStore";
 import { CartItem } from "@/store/cartStore";
-import { authUtils } from "@/lib/auth";
+import { AUTH_CONFIG, authUtils } from "@/lib/auth-complete";
 
 export function StripeBtn({ cart }: { cart: CartItem[] }) {
   const [loading, setLoading] = useState(false);
@@ -13,24 +13,26 @@ export function StripeBtn({ cart }: { cart: CartItem[] }) {
     return null;
   }
 
-  const API_URL = process.env.NEXT_PUBLIC_API_URL;
-
   const handlePayment = async () => {
     if (!user?.id) {
       alert("Vous devez être connecté pour payer.");
       return;
     }
+
     setLoading(true);
+
     try {
-      const res = await authUtils.authenticatedFetch(
-        `${API_URL}/order/${user.id}/create-checkout-session`,
+      const response = await fetch(
+        `${AUTH_CONFIG.API_URL}/order/${user.id}/create-checkout-session`,
         {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: authUtils.getAuthHeaders(),
           body: JSON.stringify({ cart }),
         }
       );
-      const data = await res.json();
+
+      const data = await response.json();
+
       if (data.url) {
         window.location.href = data.url;
       } else {

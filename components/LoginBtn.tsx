@@ -3,8 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Button } from "./ui/button";
 import Link from "next/link";
 import { useUserStore } from "@/store/userStore";
-import { fetchUser } from "@/lib/fetchUser";
-import { authUtils } from "@/lib/auth";
+import { authService, authUtils, AUTH_CONFIG } from "@/lib/auth-complete";
 
 const LoginBtn = () => {
   const { user, setUser } = useUserStore();
@@ -12,7 +11,7 @@ const LoginBtn = () => {
 
   useEffect(() => {
     const getUser = async () => {
-      const id = await fetchUser();
+      const id = await authService.fetchUser();
       setUser(id ? { id } : null);
       setLoading(false);
     };
@@ -21,9 +20,6 @@ const LoginBtn = () => {
 
     // Écouter les changements d'état d'authentification
     const handleAuthChange = () => {
-      console.log(
-        "Événement authStateChanged reçu, rechargement de l'utilisateur"
-      );
       getUser();
     };
 
@@ -36,29 +32,19 @@ const LoginBtn = () => {
 
   const handleLogout = async () => {
     try {
-      // Appeler l'endpoint de logout (optionnel, pour nettoyer côté serveur si nécessaire)
-      await authUtils.authenticatedFetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/authentication/logout`,
-        {
-          method: "POST",
-        }
-      );
-
-      // Supprimer le token du localStorage
-      authUtils.removeToken();
-
-      // Mettre à jour l'état local
-      setUser(null);
-
-      // Rafraîchir la page pour s'assurer que tous les états sont réinitialisés
-      window.location.reload();
+      // Appeler l'endpoint de logout (optionnel)
+      await fetch(`${AUTH_CONFIG.API_URL}${AUTH_CONFIG.ENDPOINTS.LOGOUT}`, {
+        method: "POST",
+        headers: authUtils.getAuthHeaders(),
+      });
     } catch (error) {
-      console.error("Logout failed:", error);
-      // Même en cas d'erreur, on supprime le token local
-      authUtils.removeToken();
-      setUser(null);
-      window.location.reload();
+      console.error("Logout API failed:", error);
     }
+
+    // Supprimer le token et mettre à jour l'état
+    authService.logout();
+    setUser(null);
+    window.location.reload();
   };
 
   if (loading) return null;

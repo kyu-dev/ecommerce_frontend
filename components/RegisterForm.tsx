@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/label";
 import Image from "next/image";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@/lib/auth-complete";
 
 export function RegisterForm({
   className,
@@ -16,10 +17,9 @@ export function RegisterForm({
     email: "",
     password: "",
   });
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const router = useRouter();
+  const { register, loginWithGoogle, isLoading, error } = useAuth();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({
@@ -30,45 +30,17 @@ export function RegisterForm({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoading(true);
-    setError("");
     setSuccess("");
 
-    try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/authentication/register`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        }
-      );
+    const result = await register(formData);
 
-      const data = await response.json();
-
-      if (response.ok) {
-        setSuccess(
-          "Compte créé avec succès ! Redirection vers la connexion..."
-        );
-        setTimeout(() => {
-          router.push("/auth/login");
-        }, 2000);
-      } else {
-        setError(data.message || "Erreur lors de la création du compte");
-      }
-    } catch {
-      setError("Erreur lors de la création du compte");
-    } finally {
-      setIsLoading(false);
+    if (result.success) {
+      setSuccess("Compte créé avec succès ! Redirection vers la connexion...");
+      setTimeout(() => {
+        router.push("/auth/login");
+      }, 2000);
     }
   };
-
-  const handleGoogleRegister = () => {
-    window.location.href = `${process.env.NEXT_PUBLIC_API_URL}/authentication/google`;
-  };
-
   return (
     <form
       className={cn("flex flex-col gap-6", className)}
@@ -138,7 +110,7 @@ export function RegisterForm({
           variant="outline"
           className="w-full"
           type="button"
-          onClick={handleGoogleRegister}
+          onClick={loginWithGoogle}
           disabled={isLoading}
         >
           <Image

@@ -5,10 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Image from "next/image";
 import { useState } from "react";
-import { authUtils } from "@/lib/auth";
-import { useRouter } from "next/navigation";
-import { fetchUser } from "@/lib/fetchUser";
-import { useUserStore } from "@/store/userStore";
+import { useAuth } from "@/lib/auth-complete";
 
 export function LoginForm({
   className,
@@ -16,75 +13,11 @@ export function LoginForm({
 }: React.ComponentProps<"form">) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
-  const router = useRouter();
-  const { setUser } = useUserStore();
+  const { login, loginWithGoogle, isLoading, error } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoading(true);
-    setError("");
-
-    try {
-      console.log("Login classique - Début de l'authentification");
-
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/authentication/login`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ email, password }),
-        }
-      );
-
-      const data = await response.json();
-      console.log("Login classique - Réponse:", data);
-
-      if (response.ok) {
-        console.log("Login classique - Succès, token reçu");
-
-        // Stocker le token dans localStorage
-        authUtils.setToken(data.token);
-        console.log("Login classique - Token stocké");
-
-        // Mettre à jour l'état utilisateur
-        try {
-          const userId = await fetchUser();
-          console.log("Login classique - UserId récupéré:", userId);
-
-          if (userId) {
-            setUser({ id: userId });
-            console.log("Login classique - État utilisateur mis à jour");
-
-            // Déclencher un événement pour notifier les autres composants
-            window.dispatchEvent(new CustomEvent("authStateChanged"));
-          }
-
-          // Rediriger vers la page d'accueil
-          router.push("/");
-        } catch (fetchError) {
-          console.error("Login classique - Erreur fetchUser:", fetchError);
-          // Rediriger même en cas d'erreur car le token est stocké
-          router.push("/");
-        }
-      } else {
-        console.log("Login classique - Erreur:", data.message);
-        setError(data.message || "Erreur de connexion");
-      }
-    } catch (error) {
-      console.error("Login classique - Erreur dans catch:", error);
-      setError("Erreur de connexion");
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const handleGoogleLogin = () => {
-    // Redirection directe vers votre backend OAuth
-    window.location.href = `${process.env.NEXT_PUBLIC_API_URL}/authentication/google`;
+    await login({ email, password });
   };
 
   return (
@@ -146,7 +79,7 @@ export function LoginForm({
           variant="outline"
           className="w-full"
           type="button"
-          onClick={handleGoogleLogin}
+          onClick={loginWithGoogle}
           disabled={isLoading}
         >
           <Image
