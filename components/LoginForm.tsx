@@ -47,7 +47,7 @@ export function LoginForm({
       } else {
         setError(data.message || "Erreur de connexion");
       }
-    } catch (err) {
+    } catch {
       setError("Erreur de connexion");
     } finally {
       setIsLoading(false);

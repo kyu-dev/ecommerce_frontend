@@ -22,9 +22,9 @@ export function RegisterForm({
   const router = useRouter();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData((prev) => ({
+    setFormData(prev => ({
       ...prev,
-      [e.target.name]: e.target.value,
+      [e.target.name]: e.target.value
     }));
   };
 
@@ -35,31 +35,26 @@ export function RegisterForm({
     setSuccess("");
 
     try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/authentication/register`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        }
-      );
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/authentication/register`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
 
       const data = await response.json();
 
       if (response.ok) {
-        setSuccess(
-          "Compte créé avec succès ! Redirection vers la connexion..."
-        );
+        setSuccess("Compte créé avec succès ! Redirection vers la connexion...");
         setTimeout(() => {
-          router.push("/auth/login");
+          router.push('/auth/login');
         }, 2000);
       } else {
-        setError(data.message || "Erreur lors de la création du compte");
+        setError(data.message || 'Erreur lors de la création du compte');
       }
-    } catch (err) {
-      setError("Erreur lors de la création du compte");
+    } catch {
+      setError('Erreur lors de la création du compte');
     } finally {
       setIsLoading(false);
     }
@@ -70,11 +65,7 @@ export function RegisterForm({
   };
 
   return (
-    <form
-      className={cn("flex flex-col gap-6", className)}
-      onSubmit={handleSubmit}
-      {...props}
-    >
+    <form className={cn("flex flex-col gap-6", className)} onSubmit={handleSubmit} {...props}>
       <div className="flex flex-col items-center gap-2 text-center">
         <h1 className="text-2xl font-bold">Register</h1>
         <p className="text-muted-foreground text-sm text-balance">
@@ -83,19 +74,23 @@ export function RegisterForm({
       </div>
       <div className="grid gap-6">
         {error && (
-          <div className="text-sm text-red-500 text-center">{error}</div>
+          <div className="text-sm text-red-500 text-center">
+            {error}
+          </div>
         )}
         {success && (
-          <div className="text-sm text-green-500 text-center">{success}</div>
+          <div className="text-sm text-green-500 text-center">
+            {success}
+          </div>
         )}
         <div className="grid gap-3">
           <Label htmlFor="name">Name</Label>
-          <Input
-            id="name"
+          <Input 
+            id="name" 
             name="name"
-            type="text"
-            placeholder="Votre nom"
-            required
+            type="text" 
+            placeholder="Votre nom" 
+            required 
             value={formData.name}
             onChange={handleChange}
             disabled={isLoading}
@@ -103,12 +98,12 @@ export function RegisterForm({
         </div>
         <div className="grid gap-3">
           <Label htmlFor="email">Email</Label>
-          <Input
-            id="email"
+          <Input 
+            id="email" 
             name="email"
-            type="email"
-            placeholder="m@example.com"
-            required
+            type="email" 
+            placeholder="m@example.com" 
+            required 
             value={formData.email}
             onChange={handleChange}
             disabled={isLoading}
@@ -116,27 +111,27 @@ export function RegisterForm({
         </div>
         <div className="grid gap-3">
           <Label htmlFor="password">Password</Label>
-          <Input
-            id="password"
+          <Input 
+            id="password" 
             name="password"
-            type="password"
-            required
+            type="password" 
+            required 
             value={formData.password}
             onChange={handleChange}
             disabled={isLoading}
           />
         </div>
         <Button type="submit" className="w-full" disabled={isLoading}>
-          {isLoading ? "Création..." : "Register"}
+          {isLoading ? 'Création...' : 'Register'}
         </Button>
         <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
           <span className="bg-background text-muted-foreground relative z-10 px-2">
             Or continue with
           </span>
         </div>
-        <Button
-          variant="outline"
-          className="w-full"
+        <Button 
+          variant="outline" 
+          className="w-full" 
           type="button"
           onClick={handleGoogleRegister}
           disabled={isLoading}

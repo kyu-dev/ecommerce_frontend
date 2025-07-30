@@ -1,9 +1,9 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { authUtils } from "@/lib/auth";
 
-export default function GoogleCallback() {
+function GoogleCallbackContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -18,7 +18,7 @@ export default function GoogleCallback() {
       // Optionnel: stocker aussi les infos utilisateur si nécessaire
       if (userParam) {
         try {
-          const user = JSON.parse(decodeURIComponent(userParam));
+          JSON.parse(decodeURIComponent(userParam));
           // Vous pouvez stocker les infos utilisateur si nécessaire
           // localStorage.setItem('user', JSON.stringify(user));
         } catch (e) {
@@ -42,5 +42,20 @@ export default function GoogleCallback() {
         <p>Connexion en cours...</p>
       </div>
     </div>
+  );
+}
+
+export default function GoogleCallback() {
+  return (
+    <Suspense fallback={
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 mx-auto mb-4"></div>
+          <p>Chargement...</p>
+        </div>
+      </div>
+    }>
+      <GoogleCallbackContent />
+    </Suspense>
   );
 }
