@@ -14,8 +14,16 @@ interface Product {
 const NewSection = async () => {
   //
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/product/new/12`);
-  const result = await res.json();
-  console.log(result);
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(`Erreur API: ${res.status} - ${text}`);
+  }
+  let result;
+  try {
+    result = await res.json();
+  } catch (e) {
+    throw new Error("Réponse JSON invalide pour les nouveaux produits");
+  }
   const products = result.data;
   return (
     <div>
