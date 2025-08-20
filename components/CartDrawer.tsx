@@ -39,65 +39,69 @@ export default function CartDrawer() {
       }`}
       style={{ willChange: "transform" }}
     >
-      <div className="flex justify-between items-center p-4 border-b">
-        <h2 className="text-xl font-bold">Mon panier</h2>
-        <button onClick={close} className="text-2xl">
-          &times;
-        </button>
-      </div>
-      <div className="p-4 flex flex-col gap-4">
-        {!isLoaded ? (
-          <p className="text-muted-foreground">Chargement du panier...</p>
-        ) : cart.length === 0 ? (
-          <p className="text-muted-foreground">Votre panier est vide.</p>
-        ) : (
-          cart.map((item, idx) => (
-            <div
-              key={idx}
-              className="flex items-center justify-between gap-2 border-b pb-2"
-            >
-              {/* Affichage image, nom, prix */}
-              <div className="flex items-center gap-2 flex-1">
-                {item.product?.img && (
-                  <img
-                    src={item.product.img}
-                    alt={item.product?.name || ""}
-                    className="w-12 h-12 object-cover rounded"
-                    width={48}
-                    height={48}
-                  />
-                )}
-                <div>
-                  <div className="font-semibold">
-                    {item.product?.name || `Produit #${item.productId}`}
-                  </div>
-                  <div className="text-sm text-muted-foreground">
-                    {item.product?.price ? `${item.product.price} €` : null}
+      <div className="flex flex-col h-full">
+        <div className="flex justify-between items-center p-4 border-b">
+          <h2 className="text-xl font-bold">Mon panier</h2>
+          <button onClick={close} className="text-2xl">
+            &times;
+          </button>
+        </div>
+        <div className="p-4 flex-1 overflow-y-auto flex flex-col gap-4">
+          {!isLoaded ? (
+            <p className="text-muted-foreground">Chargement du panier...</p>
+          ) : cart.length === 0 ? (
+            <p className="text-muted-foreground">Votre panier est vide.</p>
+          ) : (
+            cart.map((item, idx) => (
+              <div
+                key={idx}
+                className="flex items-center justify-between gap-2 border-b pb-2"
+              >
+                {/* Affichage image, nom, prix */}
+                <div className="flex items-center gap-2 flex-1">
+                  {item.product?.img && (
+                    <img
+                      src={item.product.img}
+                      alt={item.product?.name || ""}
+                      className="w-12 h-12 object-cover rounded"
+                      width={48}
+                      height={48}
+                    />
+                  )}
+                  <div>
+                    <div className="font-semibold">
+                      {item.product?.name || `Produit #${item.productId}`}
+                    </div>
+                    <div className="text-sm text-muted-foreground">
+                      {item.product?.price ? `${item.product.price} €` : null}
+                    </div>
                   </div>
                 </div>
+                <span className="mx-2">x{item.quantity}</span>
+                <button
+                  className="text-red-500 hover:text-red-700 text-xl px-2"
+                  onClick={() => {
+                    removeFromBackendCart(user.id, item.productId);
+                  }}
+                  title="Supprimer"
+                >
+                  &times;
+                </button>
               </div>
-              <span className="mx-2">x{item.quantity}</span>
-              <button
-                className="text-red-500 hover:text-red-700 text-xl px-2"
-                onClick={() => {
-                  removeFromBackendCart(user.id, item.productId);
-                }}
-                title="Supprimer"
-              >
-                &times;
-              </button>
-            </div>
-          ))
-        )}
-      </div>
-      {/* Affichage du total */}
-      {cart.length > 0 && (
-        <div className="p-4 border-t flex justify-between items-center font-bold text-lg">
-          <span>Total :</span>
-          <span>{total.toFixed(2)} €</span>
+            ))
+          )}
         </div>
-      )}
-      <StripeBtn cart={cart} />
+        {/* Affichage du total et du bouton paiement en bas */}
+        <div className="p-4 border-t">
+          {cart.length > 0 && (
+            <div className="flex justify-between items-center font-bold text-lg mb-4">
+              <span>Total :</span>
+              <span>{total.toFixed(2)} €</span>
+            </div>
+          )}
+          <StripeBtn cart={cart} />
+        </div>
+      </div>
     </div>
   );
 }

@@ -31,7 +31,7 @@ const Header = async () => {
       <div className="flex border-b p-4 justify-between">
         <div className="flex gap-3 items-center">
           <Link href="/" className="flex gap-1 items-center">
-            <Disc2 />
+            <img className="h-16" src={"/beer.jpg"} />
             <h1 className="fon">BeerShop</h1>
           </Link>
         </div>

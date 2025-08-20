@@ -52,9 +52,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
         <img
           src={img}
           alt={title}
-          className="w-full h-48 object-cover  group-hover:scale-105 transition-transform duration-200"
-          width={300}
-          height={192}
+          className="w-full h-full object-cover  group-hover:scale-105 transition-transform duration-200"
         />
         <div className="absolute top-2 left-2 flex items-center gap-1 bg-white/90 rounded-full px-2 py-0.5 shadow text-xs">
           {Array.from({ length: 5 }).map((_, i) => (

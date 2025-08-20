@@ -46,12 +46,14 @@ export function StripeBtn({ cart }: { cart: CartItem[] }) {
   };
 
   return (
-    <Button
-      onClick={handlePayment}
-      disabled={loading || !user?.id}
-      className="w-fit bg-yellow-400 text-black hover:bg-yellow-300"
-    >
-      {loading ? "Redirection..." : "Procéder au paiement"}
-    </Button>
+    <div className="flex justify-center w-full">
+      <Button
+        onClick={handlePayment}
+        disabled={loading || !user?.id}
+        className="w-full bg-blue-500 text-white hover:bg-blue-600"
+      >
+        {loading ? "Redirection..." : "Procéder au paiement"}
+      </Button>
+    </div>
   );
 }
