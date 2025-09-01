@@ -21,7 +21,7 @@ const TopSection = async () => {
   let result;
   try {
     result = await res.json();
-  } catch (e) {
+  } catch {
     throw new Error("Réponse JSON invalide pour les produits top");
   }
   const products = result.data;

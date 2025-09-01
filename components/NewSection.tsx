@@ -21,7 +21,7 @@ const NewSection = async () => {
   let result;
   try {
     result = await res.json();
-  } catch (e) {
+  } catch {
     throw new Error("Réponse JSON invalide pour les nouveaux produits");
   }
   const products = result.data;

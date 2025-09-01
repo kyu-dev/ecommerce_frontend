@@ -1,5 +1,4 @@
 import React from "react";
-import { Disc2 } from "lucide-react";
 import LoginBtn from "../LoginBtn";
 import CardBtn from "../CartBtn";
 import Link from "next/link";
@@ -31,7 +30,7 @@ const Header = async () => {
       <div className="flex border-b p-4 justify-between">
         <div className="flex gap-3 items-center">
           <Link href="/" className="flex gap-1 items-center">
-            <img className="h-16" src={"/beer.jpg"} />
+            <img className="h-16" src={"/beer.jpg"} alt="BeerShop Logo" />
             <h1 className="fon">BeerShop</h1>
           </Link>
         </div>
