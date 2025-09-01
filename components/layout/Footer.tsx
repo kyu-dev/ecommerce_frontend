@@ -8,7 +8,7 @@ function Footer() {
         <span>
           Réalisé par{" "}
           <a
-            href="https://github.com/arthurvienotongaro"
+            href="https://github.com/kyu-dev"
             className="underline hover:text-primary"
           >
             Arthur Vienot Ongaro
