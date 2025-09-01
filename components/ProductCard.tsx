@@ -48,11 +48,11 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
   return (
     <Card className="group p-0 shadow-md border overflow-hidden hover:shadow-xl transition-shadow duration-200 cursor-pointer">
-      <div className="relative overflow-hidden ">
+      <div className="relative overflow-hidden h-48 md:h-56">
         <img
           src={img}
           alt={title}
-          className="w-full h-full object-cover  group-hover:scale-105 transition-transform duration-200"
+          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
         />
         <div className="absolute top-2 left-2 flex items-center gap-1 bg-white/90 rounded-full px-2 py-0.5 shadow text-xs">
           {Array.from({ length: 5 }).map((_, i) => (
@@ -66,19 +66,29 @@ const ProductCard: React.FC<ProductCardProps> = ({
           <span className="ml-1 text-slate-700 font-medium">{rating}/5</span>
         </div>
       </div>
-      <CardFooter className="flex flex-col items-start gap-2 p-4">
-        <h3 className="text-lg font-bold line-clamp-1 w-full">{title}</h3>
+      <CardFooter className="flex flex-col items-start gap-2 p-3 md:p-4">
+        <h3 className="text-base md:text-lg font-bold line-clamp-1 w-full">
+          {title}
+        </h3>
         {description && (
-          <p className="text-sm text-muted-foreground line-clamp-2 w-full mb-2">
+          <p className="text-xs md:text-sm text-muted-foreground line-clamp-2 w-full mb-2">
             {description}
           </p>
         )}
         <div className="flex items-center justify-between w-full mt-2">
-          <span className="text-xl font-extrabold text-primary">{price} €</span>
+          <span className="text-lg md:text-xl font-extrabold text-primary">
+            {price} €
+          </span>
         </div>
-        <Button type="button" onClick={handleAddToCart} disabled={isLoading}>
+        <Button
+          type="button"
+          onClick={handleAddToCart}
+          disabled={isLoading}
+          className="w-full text-xs md:text-sm"
+          size="sm"
+        >
           {!user?.id
-            ? "Se connecter pour ajouter"
+            ? "Se connecter"
             : isLoading
             ? "Ajout..."
             : "Ajouter au panier"}

@@ -108,12 +108,12 @@ const CataloguePage = async ({ searchParams }: CataloguePageProps) => {
   const filteredProducts = applyFiltersAndSort(products, filters);
 
   return (
-    <div className="flex gap-8 p-8 min-h-screen ">
-      <aside className="w-64 shrink-0">
+    <div className="flex flex-col lg:flex-row gap-4 md:gap-8 p-4 md:p-8 min-h-screen">
+      <aside className="w-full lg:w-64 lg:shrink-0">
         <FilterSidebar />
       </aside>
       <main className="flex-1">
-        <h1 className="text-3xl font-bold mb-6">
+        <h1 className="text-2xl md:text-3xl font-bold mb-4 md:mb-6">
           Catalogue
           {filters.category
             ? ` — ${
@@ -122,7 +122,7 @@ const CataloguePage = async ({ searchParams }: CataloguePageProps) => {
               }`
             : ""}
         </h1>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4 md:gap-6">
           {(filteredProducts ?? []).map((product: Product) => (
             <Link key={product.id} href={`/product/${product.id}`}>
               <ProductCard

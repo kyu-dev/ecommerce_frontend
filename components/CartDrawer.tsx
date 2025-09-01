@@ -34,23 +34,27 @@ export default function CartDrawer() {
 
   return (
     <div
-      className={`fixed top-0 right-0 h-full w-80 bg-white shadow-lg z-50 transition-transform duration-300 ${
+      className={`fixed top-0 right-0 h-full w-full sm:w-80 bg-white shadow-lg z-50 transition-transform duration-300 ${
         isOpen ? "translate-x-0" : "translate-x-full"
       }`}
       style={{ willChange: "transform" }}
     >
       <div className="flex flex-col h-full">
-        <div className="flex justify-between items-center p-4 border-b">
-          <h2 className="text-xl font-bold">Mon panier</h2>
-          <button onClick={close} className="text-2xl">
+        <div className="flex justify-between items-center p-3 md:p-4 border-b">
+          <h2 className="text-lg md:text-xl font-bold">Mon panier</h2>
+          <button onClick={close} className="text-2xl p-1">
             &times;
           </button>
         </div>
-        <div className="p-4 flex-1 overflow-y-auto flex flex-col gap-4">
+        <div className="p-3 md:p-4 flex-1 overflow-y-auto flex flex-col gap-3 md:gap-4">
           {!isLoaded ? (
-            <p className="text-muted-foreground">Chargement du panier...</p>
+            <p className="text-muted-foreground text-sm">
+              Chargement du panier...
+            </p>
           ) : cart.length === 0 ? (
-            <p className="text-muted-foreground">Votre panier est vide.</p>
+            <p className="text-muted-foreground text-sm">
+              Votre panier est vide.
+            </p>
           ) : (
             cart.map((item, idx) => (
               <div
@@ -63,23 +67,23 @@ export default function CartDrawer() {
                     <img
                       src={item.product.img}
                       alt={item.product?.name || ""}
-                      className="w-12 h-12 object-cover rounded"
+                      className="w-10 h-10 md:w-12 md:h-12 object-cover rounded"
                       width={48}
                       height={48}
                     />
                   )}
-                  <div>
-                    <div className="font-semibold">
+                  <div className="min-w-0 flex-1">
+                    <div className="font-semibold text-sm md:text-base truncate">
                       {item.product?.name || `Produit #${item.productId}`}
                     </div>
-                    <div className="text-sm text-muted-foreground">
+                    <div className="text-xs md:text-sm text-muted-foreground">
                       {item.product?.price ? `${item.product.price} €` : null}
                     </div>
                   </div>
                 </div>
-                <span className="mx-2">x{item.quantity}</span>
+                <span className="mx-1 md:mx-2 text-sm">x{item.quantity}</span>
                 <button
-                  className="text-red-500 hover:text-red-700 text-xl px-2"
+                  className="text-red-500 hover:text-red-700 text-lg md:text-xl px-1 md:px-2"
                   onClick={() => {
                     removeFromBackendCart(user.id, item.productId);
                   }}
@@ -92,9 +96,9 @@ export default function CartDrawer() {
           )}
         </div>
         {/* Affichage du total et du bouton paiement en bas */}
-        <div className="p-4 border-t">
+        <div className="p-3 md:p-4 border-t">
           {cart.length > 0 && (
-            <div className="flex justify-between items-center font-bold text-lg mb-4">
+            <div className="flex justify-between items-center font-bold text-base md:text-lg mb-3 md:mb-4">
               <span>Total :</span>
               <span>{total.toFixed(2)} €</span>
             </div>

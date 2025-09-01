@@ -48,17 +48,19 @@ const FilterSidebar = () => {
   };
 
   return (
-    <Card className="w-full ">
-      <CardHeader>
-        <h2 className="text-lg font-bold">Filtres & Tri</h2>
+    <Card className="w-full">
+      <CardHeader className="pb-3">
+        <h2 className="text-base md:text-lg font-bold">Filtres & Tri</h2>
       </CardHeader>
-      <CardContent>
-        <form onSubmit={handleFilter} className="flex flex-col gap-6">
+      <CardContent className="pt-0">
+        <form onSubmit={handleFilter} className="flex flex-col gap-4 md:gap-6">
           <div>
-            <Label htmlFor="category">Catégorie</Label>
+            <Label htmlFor="category" className="text-sm">
+              Catégorie
+            </Label>
             <select
               id="category"
-              className="w-full border rounded px-2 py-1 mt-1"
+              className="w-full border rounded px-2 py-1 mt-1 text-sm"
               value={category}
               onChange={(e) => setCategory(e.target.value)}
             >
@@ -72,7 +74,9 @@ const FilterSidebar = () => {
           </div>
           <div className="flex gap-2">
             <div className="flex-1">
-              <Label htmlFor="minPrice">Prix min</Label>
+              <Label htmlFor="minPrice" className="text-sm">
+                Prix min
+              </Label>
               <Input
                 id="minPrice"
                 type="number"
@@ -80,11 +84,13 @@ const FilterSidebar = () => {
                 onChange={(e) => setMinPrice(e.target.value)}
                 min={0}
                 placeholder="0"
-                className="mt-1"
+                className="mt-1 text-sm h-8"
               />
             </div>
             <div className="flex-1">
-              <Label htmlFor="maxPrice">Prix max</Label>
+              <Label htmlFor="maxPrice" className="text-sm">
+                Prix max
+              </Label>
               <Input
                 id="maxPrice"
                 type="number"
@@ -92,15 +98,17 @@ const FilterSidebar = () => {
                 onChange={(e) => setMaxPrice(e.target.value)}
                 min={0}
                 placeholder=""
-                className="mt-1"
+                className="mt-1 text-sm h-8"
               />
             </div>
           </div>
           <div>
-            <Label htmlFor="sort">Trier par</Label>
+            <Label htmlFor="sort" className="text-sm">
+              Trier par
+            </Label>
             <select
               id="sort"
-              className="w-full border rounded px-2 py-1 mt-1"
+              className="w-full border rounded px-2 py-1 mt-1 text-sm"
               value={sort}
               onChange={(e) => setSort(e.target.value)}
             >
@@ -113,10 +121,12 @@ const FilterSidebar = () => {
             </select>
           </div>
           <div>
-            <Label htmlFor="volume">Volume</Label>
+            <Label htmlFor="volume" className="text-sm">
+              Volume
+            </Label>
             <select
               id="volume"
-              className="w-full border rounded px-2 py-1 mt-1"
+              className="w-full border rounded px-2 py-1 mt-1 text-sm"
               value={volume}
               onChange={(e) => setVolume(e.target.value)}
             >
@@ -128,7 +138,7 @@ const FilterSidebar = () => {
               ))}
             </select>
           </div>
-          <Button type="submit" className="w-full mt-2">
+          <Button type="submit" className="w-full mt-2 text-sm h-8" size="sm">
             Filtrer
           </Button>
         </form>
