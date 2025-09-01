@@ -5,7 +5,7 @@ import Link from "next/link";
 function Hero() {
   return (
     <>
-      <div className="h-64 md:h-80 lg:h-96 m-2 md:m-6 rounded-2xl bg-[url('/banner.webp')] bg-cover bg-center bg-no-repeat flex items-center">
+      <div className="h-64 md:h-80 lg:h-160 m-2 md:m-6 rounded-2xl bg-[url('/banner.webp')] bg-cover bg-center bg-no-repeat flex items-center">
         <div className="max-w-xs sm:max-w-md md:max-w-2xl ml-4 md:ml-10 lg:ml-20 space-y-3 md:space-y-6 p-4">
           <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold text-white leading-tight">
             Découvrez l&apos;univers de la bière artisanale
