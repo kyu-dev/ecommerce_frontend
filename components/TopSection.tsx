@@ -13,7 +13,9 @@ interface Product {
 
 const TopSection = async () => {
   //
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/product/top/12`);
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/product/top/12`, {
+    next: { revalidate: 1800 }, // 30 minutes
+  });
   if (!res.ok) {
     const text = await res.text();
     throw new Error(`Erreur API: ${res.status} - ${text}`);

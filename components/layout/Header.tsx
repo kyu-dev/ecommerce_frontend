@@ -15,7 +15,7 @@ const Header = async () => {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/category/get`,
       {
-        cache: "no-store",
+        next: { revalidate: 3600 }, // 1 heure
       }
     );
 
@@ -30,7 +30,11 @@ const Header = async () => {
       <div className="flex border-b p-2 md:p-4 justify-between items-center">
         <div className="flex gap-2 md:gap-3 items-center">
           <Link href="/" className="flex gap-1 items-center">
-            <img className="h-12 md:h-16" src={"/beer.jpg"} alt="BeerShop Logo" />
+            <img
+              className="h-12 md:h-16"
+              src={"/beer.jpg"}
+              alt="BeerShop Logo"
+            />
             <h1 className="text-lg md:text-xl font-bold">BeerShop</h1>
           </Link>
         </div>
@@ -53,7 +57,9 @@ const Header = async () => {
             </Link>
           ))
         ) : (
-          <p className="text-muted-foreground text-sm">Aucune catégorie disponible.</p>
+          <p className="text-muted-foreground text-sm">
+            Aucune catégorie disponible.
+          </p>
         )}
       </div>
     </div>

@@ -96,7 +96,9 @@ const CataloguePage = async ({ searchParams }: CataloguePageProps) => {
   const resolvedSearchParams = await searchParams;
 
   // On récupère tous les produits (sans filtre côté backend)
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/product/get`);
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/product/get`, {
+    next: { revalidate: 1800 }, // 30 minutes
+  });
   if (!res.ok) {
     const text = await res.text();
     throw new Error(`Erreur API: ${res.status} - ${text}`);

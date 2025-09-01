@@ -30,7 +30,10 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/product/get/?id=${id}`
+      `${process.env.NEXT_PUBLIC_API_URL}/product/get/?id=${id}`,
+      {
+        next: { revalidate: 3600 }, // 1 heure
+      }
     );
 
     if (!response.ok) {
